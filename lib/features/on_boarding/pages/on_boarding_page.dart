@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:schedule_of_residential_projects/core/extensions/size_config.dart';
 
 import '../../../core/constants_methods.dart';
-import '../../home/pages/home_page.dart';
+import '../../../sehedule_of_residential_projects_app.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({super.key});
@@ -43,7 +43,7 @@ class OnBoardingPage extends StatelessWidget {
                       IconButton(
                           onPressed: () {
                             Navigator.pushReplacement(
-                                context, createRoute(const HomePage()));
+                                context, createRoute(const MainPage()));
                           },
                           icon: Container(
                             padding: EdgeInsets.symmetric(
@@ -63,13 +63,11 @@ class OnBoardingPage extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.bottomCenter,
-                  child: Padding(
-                      padding: EdgeInsets.only(bottom: 15.h),
-                      child: Image.asset(
-                        'assets/images/tazmin-logo.png',
-                        width: 180.w,
-                        height: 180.h,
-                      )),
+                  child: Image.asset(
+                    'assets/images/tazmin_logo3.png',
+                    width: 150.w,
+                    height: 150.h,
+                  ),
                 ),
               ],
             ),

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:schedule_of_residential_projects/core/extensions/size_config.dart';
-import 'package:schedule_of_residential_projects/features/home/widgets/floor_figures.dart';
 
 import '../../../core/constants_methods.dart';
 import '../../../core/util/enums.dart';
 import '../widgets/custom_radio_list_tile.dart';
 import '../widgets/field_label.dart';
+import '../widgets/floor_figures.dart';
 import '../widgets/floor_figures_radio_list_tile.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final VoidCallback openDrawer;
+  const HomePage({super.key, required this.openDrawer});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -126,74 +127,59 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFEBE4DA),
-      body: SafeArea(
-          child: MediaQuery(
-        data: MediaQuery.of(context).copyWith(
-          textScaleFactor: SizeConfig.textScaleFactor,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              height: 100,
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(40),
-                  )),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.menu,
-                          color: Theme.of(context).secondaryHeaderColor,
-                          size: 30.sp,
-                        ),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        Text(
-                          'تزمين',
-                          style: TextStyle(
-                              // height: 3.h,
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold),
-                          //  textAlign: TextAlign.justify,
-                        ),
-                      ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+          statusBarColor: Colors.white.withOpacity(0.0),
+          statusBarIconBrightness: Brightness.dark),
+      child: Scaffold(
+        backgroundColor: const Color(0xFFEBE4DA),
+        body: SafeArea(
+            child: MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaleFactor: SizeConfig.textScaleFactor,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: double.infinity,
+                height: 100,
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(40),
+                    )),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () => widget.openDrawer(),
+                      icon: Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                        size: 30.sp,
+                      ),
                     ),
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFEBE4DA),
-                      shape: BoxShape.circle,
+                    SizedBox(
+                      width: 20.w,
                     ),
-                    child: Image.asset(
-                      'assets/images/tazmin-logo.png',
-                    ),
-                  )
-                ],
+                    Expanded(
+                      child: Text(
+                        'حساب الجدول الزمني للمشاريع السكنية',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: Scrollbar(
-                //controller: scrollControllerverticalHorizontlCtrl,
-                thumbVisibility: true,
-                //trackVisibility: true,
-                thickness: 5.sp,
-                radius: Radius.circular(20.sp),
-                scrollbarOrientation: ScrollbarOrientation.right,
+              Expanded(
                 child: SingleChildScrollView(
                   padding: EdgeInsets.only(
                       left: 20.w, right: 20.w, top: 20.h, bottom: 5.h),
@@ -1581,10 +1567,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-      )),
+            ],
+          ),
+        )),
+      ),
     );
   }
 }

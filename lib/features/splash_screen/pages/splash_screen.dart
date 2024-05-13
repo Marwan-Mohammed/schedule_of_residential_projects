@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:schedule_of_residential_projects/core/extensions/size_config.dart';
 import '../../../core/constants_methods.dart';
 
 import '../../on_boarding/pages/on_boarding_page.dart';
@@ -43,44 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
             statusBarIconBrightness: Brightness.dark),
         child: Scaffold(
           backgroundColor: const Color(0xFFEBE4DA),
-          body: SafeArea(
-            child: Stack(
-              children: [
-                Container(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      'assets/images/tazmin-logo.png',
-                      width: 350.w,
-                      height: 350.h,
-                    )),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 15.h),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'FOR',
-                          style: TextStyle(
-                              fontSize: 15.sp,
-                              color: Theme.of(context).primaryColor),
-                        ),
-                        Text(
-                          'SCHEDULING',
-                          style: TextStyle(
-                              fontSize: 15.sp,
-                              color: Theme.of(context).primaryColor,
-                              letterSpacing: 5),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          body: SafeArea(child: Image.asset('assets/images/tazmin_logo2.png')),
         ));
   }
 }
