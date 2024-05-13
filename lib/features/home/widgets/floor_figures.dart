@@ -11,7 +11,7 @@ class ProtrusionL extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          color: const Color(0xFF90A4AE),
+          color: Theme.of(context).secondaryHeaderColor,
           width: 80,
           height: 50,
         ),
@@ -36,7 +36,7 @@ class ProtrusionW extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          color: const Color(0xFF90A4AE),
+          color: Theme.of(context).secondaryHeaderColor,
           width: 80,
           height: 50,
         ),
@@ -66,7 +66,7 @@ class ProtrusionLL extends StatelessWidget {
           height: 20,
         ),
         Container(
-          color: const Color(0xFF90A4AE),
+          color: Theme.of(context).secondaryHeaderColor,
           width: 80,
           height: 50,
         ),
@@ -96,7 +96,7 @@ class ProtrusionWW extends StatelessWidget {
           height: 50,
         ),
         Container(
-          color: const Color(0xFF90A4AE),
+          color: Theme.of(context).secondaryHeaderColor,
           width: 80,
           height: 50,
         ),
@@ -125,7 +125,7 @@ class ProtrusionWL extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              color: const Color(0xFF90A4AE),
+              color: Theme.of(context).secondaryHeaderColor,
               width: 80,
               height: 50,
             ),
@@ -146,7 +146,7 @@ class ProtrusionWL extends StatelessWidget {
               height: 20,
             ),
             Container(
-              color: const Color.fromARGB(255, 189, 194, 242).withOpacity(0.8),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
               width: 20,
               height: 20,
             ),
@@ -178,7 +178,7 @@ class ProtrusionLLW extends StatelessWidget {
               height: 20,
             ),
             Container(
-              color: const Color.fromARGB(255, 189, 194, 242).withOpacity(0.8),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
               width: 20,
               height: 20,
             ),
@@ -189,7 +189,7 @@ class ProtrusionLLW extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              color: const Color(0xFF90A4AE),
+              color: Theme.of(context).secondaryHeaderColor,
               width: 80,
               height: 50,
             ),
@@ -211,7 +211,7 @@ class ProtrusionLLW extends StatelessWidget {
               height: 20,
             ),
             Container(
-              color: const Color.fromARGB(255, 189, 194, 242).withOpacity(0.8),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
               width: 20,
               height: 20,
             ),
@@ -238,7 +238,7 @@ class ProtrusionWWL extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              color: const Color.fromARGB(255, 189, 194, 242).withOpacity(0.8),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
               width: 20,
               height: 20,
             ),
@@ -248,7 +248,7 @@ class ProtrusionWWL extends StatelessWidget {
               height: 20,
             ),
             Container(
-              color: const Color.fromARGB(255, 189, 194, 242).withOpacity(0.8),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
               width: 20,
               height: 20,
             ),
@@ -264,7 +264,7 @@ class ProtrusionWWL extends StatelessWidget {
               height: 50,
             ),
             Container(
-              color: const Color(0xFF90A4AE),
+              color: Theme.of(context).secondaryHeaderColor,
               width: 80,
               height: 50,
             ),
@@ -296,7 +296,7 @@ class ProtrusionLLWW extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              color: const Color.fromARGB(255, 189, 194, 242).withOpacity(0.8),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
               width: 20,
               height: 20,
             ),
@@ -306,7 +306,7 @@ class ProtrusionLLWW extends StatelessWidget {
               height: 20,
             ),
             Container(
-              color: const Color.fromARGB(255, 189, 194, 242).withOpacity(0.8),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
               width: 20,
               height: 20,
             ),
@@ -322,7 +322,7 @@ class ProtrusionLLWW extends StatelessWidget {
               height: 50,
             ),
             Container(
-              color: const Color(0xFF90A4AE),
+              color: Theme.of(context).secondaryHeaderColor,
               width: 80,
               height: 50,
             ),
@@ -339,7 +339,7 @@ class ProtrusionLLWW extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              color: const Color.fromARGB(255, 189, 194, 242).withOpacity(0.8),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
               width: 20,
               height: 20,
             ),
@@ -349,7 +349,7 @@ class ProtrusionLLWW extends StatelessWidget {
               height: 20,
             ),
             Container(
-              color: const Color.fromARGB(255, 189, 194, 242).withOpacity(0.8),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
               width: 20,
               height: 20,
             ),

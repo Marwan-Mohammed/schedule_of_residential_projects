@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:schedule_of_residential_projects/core/extensions/size_config.dart';
 import 'package:schedule_of_residential_projects/features/home/widgets/floor_figures.dart';
 
-import '../../../core/listen_methods.dart';
+import '../../../core/constants_methods.dart';
 import '../../../core/util/enums.dart';
 import '../widgets/custom_radio_list_tile.dart';
 import '../widgets/field_label.dart';
@@ -127,6 +127,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFEBE4DA),
       body: SafeArea(
           child: MediaQuery(
         data: MediaQuery.of(context).copyWith(
@@ -138,7 +139,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Container(
               width: double.infinity,
-              height: 110,
+              height: 100,
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               decoration: BoxDecoration(
@@ -146,14 +147,43 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(40),
                   )),
-              child: Text(
-                "حساب الجدول الزمني للمشاريع السكنية",
-                style: TextStyle(
-                    // height: 3.h,
-                    color: Colors.white,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold),
-                //  textAlign: TextAlign.justify,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.menu,
+                          color: Theme.of(context).secondaryHeaderColor,
+                          size: 30.sp,
+                        ),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Text(
+                          'تزمين',
+                          style: TextStyle(
+                              // height: 3.h,
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.bold),
+                          //  textAlign: TextAlign.justify,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFEBE4DA),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.asset(
+                      'assets/images/tazmin-logo.png',
+                    ),
+                  )
+                ],
               ),
             ),
             Expanded(
@@ -177,8 +207,7 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.symmetric(
                               horizontal: 10.w, vertical: 10.h),
                           margin: EdgeInsets.only(bottom: 15.h),
-                          color:
-                              Theme.of(context).primaryColor.withOpacity(0.2),
+                          color: Theme.of(context).secondaryHeaderColor,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -304,21 +333,24 @@ class _HomePageState extends State<HomePage> {
                                           onTapOutside: (event) => FocusManager
                                               .instance.primaryFocus
                                               ?.unfocus(),
-
+                                          cursorColor: Theme.of(context)
+                                              .secondaryHeaderColor,
                                           decoration: InputDecoration(
                                             hintText: 'الطول (م)',
                                             hintStyle: TextStyle(
                                                 fontSize: 16.sp,
-                                                color: const Color(0xFF90A4AE),
+                                                color: Theme.of(context)
+                                                    .primaryColor
+                                                    .withOpacity(0.5),
                                                 fontWeight: FontWeight.normal),
                                             contentPadding:
                                                 EdgeInsets.symmetric(
                                                     vertical: 5.h,
                                                     horizontal: 15.w),
                                             filled: true,
-                                            fillColor: const Color.fromARGB(
-                                                    255, 189, 194, 242)
-                                                .withOpacity(0.2),
+                                            fillColor: Theme.of(context)
+                                                .primaryColor
+                                                .withOpacity(0.1),
                                             enabledBorder:
                                                 const OutlineInputBorder(
                                               borderRadius: BorderRadius.all(
@@ -397,21 +429,24 @@ class _HomePageState extends State<HomePage> {
                                           onTapOutside: (event) => FocusManager
                                               .instance.primaryFocus
                                               ?.unfocus(),
-
+                                          cursorColor: Theme.of(context)
+                                              .secondaryHeaderColor,
                                           decoration: InputDecoration(
                                             hintText: 'العرض (م)',
                                             hintStyle: TextStyle(
                                                 fontSize: 16.sp,
-                                                color: const Color(0xFF90A4AE),
+                                                color: Theme.of(context)
+                                                    .primaryColor
+                                                    .withOpacity(0.5),
                                                 fontWeight: FontWeight.normal),
                                             contentPadding:
                                                 EdgeInsets.symmetric(
                                                     vertical: 5.h,
                                                     horizontal: 15.w),
                                             filled: true,
-                                            fillColor: const Color.fromARGB(
-                                                    255, 189, 194, 242)
-                                                .withOpacity(0.2),
+                                            fillColor: Theme.of(context)
+                                                .primaryColor
+                                                .withOpacity(0.1),
                                             enabledBorder:
                                                 const OutlineInputBorder(
                                               borderRadius: BorderRadius.all(
@@ -695,19 +730,22 @@ class _HomePageState extends State<HomePage> {
                                       // onTapOutside: (event) => FocusManager
                                       //     .instance.primaryFocus
                                       //     ?.unfocus(),
-
+                                      cursorColor: Theme.of(context)
+                                          .secondaryHeaderColor,
                                       decoration: InputDecoration(
                                         hintText: '(الطول*العرض)م^2',
                                         hintStyle: TextStyle(
                                             fontSize: 16.sp,
-                                            color: const Color(0xFF90A4AE),
+                                            color: Theme.of(context)
+                                                .primaryColor
+                                                .withOpacity(0.5),
                                             fontWeight: FontWeight.normal),
                                         contentPadding: EdgeInsets.symmetric(
                                             vertical: 5.h, horizontal: 15.w),
                                         filled: true,
-                                        fillColor: const Color.fromARGB(
-                                                255, 189, 194, 242)
-                                            .withOpacity(0.2),
+                                        fillColor: Theme.of(context)
+                                            .primaryColor
+                                            .withOpacity(0.1),
                                         enabledBorder: const OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(24.0)),
@@ -892,7 +930,8 @@ class _HomePageState extends State<HomePage> {
                                                       : (event) => FocusManager
                                                           .instance.primaryFocus
                                                           ?.unfocus(),
-
+                                                  cursorColor: Theme.of(context)
+                                                      .secondaryHeaderColor,
                                                   decoration: InputDecoration(
                                                     hintText: index == 0
                                                         ? '(الطول*العرض)م^2'
@@ -909,8 +948,9 @@ class _HomePageState extends State<HomePage> {
                                                                         : '',
                                                     hintStyle: TextStyle(
                                                         fontSize: 16.sp,
-                                                        color: const Color(
-                                                            0xFF90A4AE),
+                                                        color: Theme.of(context)
+                                                            .primaryColor
+                                                            .withOpacity(0.5),
                                                         fontWeight:
                                                             FontWeight.normal),
                                                     contentPadding:
@@ -918,13 +958,9 @@ class _HomePageState extends State<HomePage> {
                                                             vertical: 5.h,
                                                             horizontal: 15.w),
                                                     filled: true,
-                                                    fillColor:
-                                                        const Color.fromARGB(
-                                                                255,
-                                                                189,
-                                                                194,
-                                                                242)
-                                                            .withOpacity(0.2),
+                                                    fillColor: Theme.of(context)
+                                                        .primaryColor
+                                                        .withOpacity(0.1),
                                                     enabledBorder:
                                                         const OutlineInputBorder(
                                                       borderRadius:
@@ -1065,7 +1101,9 @@ class _HomePageState extends State<HomePage> {
                                                                   .instance
                                                                   .primaryFocus
                                                                   ?.unfocus(),
-
+                                                      cursorColor: Theme.of(
+                                                              context)
+                                                          .secondaryHeaderColor,
                                                       decoration:
                                                           InputDecoration(
                                                         hintText: index == 0
@@ -1079,8 +1117,11 @@ class _HomePageState extends State<HomePage> {
                                                                         : 'مساحة الدور المتكرر الرابع (م^2)',
                                                         hintStyle: TextStyle(
                                                             fontSize: 16.sp,
-                                                            color: const Color(
-                                                                0xFF90A4AE),
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .primaryColor
+                                                                .withOpacity(
+                                                                    0.5),
                                                             fontWeight:
                                                                 FontWeight
                                                                     .normal),
@@ -1092,10 +1133,10 @@ class _HomePageState extends State<HomePage> {
                                                                     horizontal:
                                                                         15.w),
                                                         filled: true,
-                                                        fillColor: const Color
-                                                                .fromARGB(255,
-                                                                189, 194, 242)
-                                                            .withOpacity(0.2),
+                                                        fillColor: Theme.of(
+                                                                context)
+                                                            .primaryColor
+                                                            .withOpacity(0.1),
                                                         enabledBorder:
                                                             const OutlineInputBorder(
                                                           borderRadius:
@@ -1405,7 +1446,8 @@ class _HomePageState extends State<HomePage> {
                                         filled: true,
                                         fillColor: Theme.of(context)
                                             .primaryColor
-                                            .withOpacity(0.5),
+                                            .withOpacity(0.1),
+
                                         enabledBorder: const OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10.0)),
@@ -1463,19 +1505,22 @@ class _HomePageState extends State<HomePage> {
                                 onTapOutside: (event) => FocusManager
                                     .instance.primaryFocus
                                     ?.unfocus(),
-
+                                cursorColor:
+                                    Theme.of(context).secondaryHeaderColor,
                                 decoration: InputDecoration(
                                   hintText: 'اسم المالك',
                                   hintStyle: TextStyle(
                                       fontSize: 16.sp,
-                                      color: const Color(0xFF90A4AE),
+                                      color: Theme.of(context)
+                                          .primaryColor
+                                          .withOpacity(0.5),
                                       fontWeight: FontWeight.normal),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 5.h, horizontal: 15.w),
                                   filled: true,
-                                  fillColor:
-                                      const Color.fromARGB(255, 189, 194, 242)
-                                          .withOpacity(0.2),
+                                  fillColor: Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.1),
                                   enabledBorder: const OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10.0)),
@@ -1531,19 +1576,6 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        Wrap(
-                          spacing: 20.w,
-                          runSpacing: 20.h,
-                          children: [
-                            //1
-
-                            //2
-
-                            //3
-
-                            //4
-                          ],
-                        )
                       ],
                     ),
                   ),

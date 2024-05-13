@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:schedule_of_residential_projects/core/extensions/size_config.dart';
 
+import 'features/splash_screen/pages/splash_screen.dart';
 import 'sehedule_of_residential_projects_app.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -33,17 +34,18 @@ class MyApp extends StatelessWidget {
       title: 'الجدول الزمني للمشاريع لسكنية',
       locale: const Locale('ar'),
       theme: ThemeData(
-        primaryColor: const Color(0xFF008B9A),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF008B9A),
-          primary: const Color(0xFF008B9A),
-        ),
+        primaryColor: const Color(0xFF1B3D3F),
+        secondaryHeaderColor: const Color(0xFFD3A776),
+        // colorScheme: ColorScheme.fromSeed(
+        //   seedColor: const Color(0xFF008B9A),
+        //   primary: const Color(0xFF008B9A),
+        // ),
         useMaterial3: true,
         fontFamily: 'Almarai',
         scaffoldBackgroundColor: Colors.white,
         //unselectedWidgetColor: const Color(0xFF008B9A),
       ),
-      home: const SeceduleOfResidentialProgectsApp(),
+      home: const SplashScreen(),
     );
   }
 }
