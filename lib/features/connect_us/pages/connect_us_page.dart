@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:schedule_of_residential_projects/core/extensions/size_config.dart';
 
-class AboutAppPage extends StatelessWidget {
+class ConnectUsPage extends StatelessWidget {
   final VoidCallback openDrawer;
-  const AboutAppPage({super.key, required this.openDrawer});
+  const ConnectUsPage({super.key, required this.openDrawer});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class AboutAppPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'عن التطبيق',
+                        'تواصل معنا',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
@@ -65,22 +65,19 @@ class AboutAppPage extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                   child: Text(
-                    '''(مرحبًا بكم في تطبيق تزمين،
+                    '''مرحبًا بك مجددًا. 
+نحن هنا لخدمتك، لا تتردد في الاتصال بنا إذا كان هناك أي شيء يمكننا مساعدتك به.
+فريقنا مستعد دائمًا لمساعدتك لضمان تجربة استخدام سلسة ومرضية.
 
-نحن في تزمين نفخر بتقديم أداة مبتكرة تساعدكم في تقدير الجدول الزمني لمشاريعكم الإنشائية بكل سهولة. 
-يعتمد تطبيقنا على أحدث الأساليب الحسابية لتوفير تقديرات تقريبية تساعدكم في التخطيط لتحقيق أفضل النتائج. 
+تواصل معنا عبر البريد الالكتروني ()
 
-مع تزمين، ستتمتعون بالمزايا التالية:
-
-- تقديرات سريعة للجداول الزمنية.
-- واجهة مستخدم بديهية وسهلة الاستخدام.
-- تحليلات مفصلة لمراحل المشروع المختلفة.
-- دعم فني مستمر لضمان أفضل تجربة ممكنة.
-
-نشكركم على اختيار تزمين، ونتطلع إلى أن نكون جزءًا من نجاح مشاريعكم.
-
-أطيب التحيات،
-فريق تزمين)''',
+فريق الدعم :
+- م.اسامه خالد باشامخة (771438063-00967)
+- م.حسن سعيد باغزال (771675972-00967)
+- م.عبدالحمن خالد التميمي (772323371-00967)
+- م.عمر طالب بن شملان (778297914-00967)
+- م.فريد محسن التميمي (775195053-00967)
+- م.مهند محمد التميمي(737608782-00967)''',
                     style: TextStyle(height: 2.h, fontSize: 16.sp),
                     textAlign: TextAlign.justify,
                   ),

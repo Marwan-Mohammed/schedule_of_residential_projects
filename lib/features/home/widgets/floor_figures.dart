@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:schedule_of_residential_projects/core/extensions/size_config.dart';
 
 class ProtrusionL extends StatelessWidget {
   const ProtrusionL({super.key});
@@ -16,9 +17,14 @@ class ProtrusionL extends StatelessWidget {
           height: 50,
         ),
         Container(
+          alignment: Alignment.center,
           color: Theme.of(context).primaryColor,
           width: 80,
           height: 20,
+          child: Text(
+            'ل',
+            style: TextStyle(color: Colors.white, fontSize: 10.sp),
+          ),
         ),
       ],
     );
@@ -41,9 +47,14 @@ class ProtrusionW extends StatelessWidget {
           height: 50,
         ),
         Container(
+          alignment: Alignment.center,
           color: Theme.of(context).primaryColor,
           width: 20,
           height: 50,
+          child: Text(
+            'ع',
+            style: TextStyle(color: Colors.white, fontSize: 10.sp),
+          ),
         ),
       ],
     );
@@ -61,9 +72,14 @@ class ProtrusionLL extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
+          alignment: Alignment.center,
           color: Theme.of(context).primaryColor,
           width: 80,
           height: 20,
+          child: Text(
+            'ل',
+            style: TextStyle(color: Colors.white, fontSize: 10.sp),
+          ),
         ),
         Container(
           color: Theme.of(context).secondaryHeaderColor,
@@ -71,9 +87,14 @@ class ProtrusionLL extends StatelessWidget {
           height: 50,
         ),
         Container(
+          alignment: Alignment.center,
           color: Theme.of(context).primaryColor,
           width: 80,
           height: 20,
+          child: Text(
+            'ل',
+            style: TextStyle(color: Colors.white, fontSize: 10.sp),
+          ),
         ),
       ],
     );
@@ -91,9 +112,14 @@ class ProtrusionWW extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
+          alignment: Alignment.center,
           color: Theme.of(context).primaryColor,
           width: 20,
           height: 50,
+          child: Text(
+            'ع',
+            style: TextStyle(color: Colors.white, fontSize: 10.sp),
+          ),
         ),
         Container(
           color: Theme.of(context).secondaryHeaderColor,
@@ -101,9 +127,14 @@ class ProtrusionWW extends StatelessWidget {
           height: 50,
         ),
         Container(
+          alignment: Alignment.center,
           color: Theme.of(context).primaryColor,
           width: 20,
           height: 50,
+          child: Text(
+            'ع',
+            style: TextStyle(color: Colors.white, fontSize: 10.sp),
+          ),
         ),
       ],
     );
@@ -130,9 +161,14 @@ class ProtrusionWL extends StatelessWidget {
               height: 50,
             ),
             Container(
+              alignment: Alignment.center,
               color: Theme.of(context).primaryColor,
               width: 20,
               height: 50,
+              child: Text(
+                'ع',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
             ),
           ],
         ),
@@ -141,9 +177,14 @@ class ProtrusionWL extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              alignment: Alignment.center,
               color: Theme.of(context).primaryColor,
               width: 80,
               height: 20,
+              child: Text(
+                'ل',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
             ),
             Container(
               color: Theme.of(context).primaryColor.withOpacity(0.1),
@@ -173,9 +214,14 @@ class ProtrusionLLW extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
+              alignment: Alignment.center,
               color: Theme.of(context).primaryColor,
               width: 80,
               height: 20,
+              child: Text(
+                'ل',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
             ),
             Container(
               color: Theme.of(context).primaryColor.withOpacity(0.1),
@@ -194,9 +240,14 @@ class ProtrusionLLW extends StatelessWidget {
               height: 50,
             ),
             Container(
+              alignment: Alignment.center,
               color: Theme.of(context).primaryColor,
               width: 20,
               height: 50,
+              child: Text(
+                'ع',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
             ),
           ],
         ),
@@ -206,9 +257,14 @@ class ProtrusionLLW extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
+              alignment: Alignment.center,
               color: Theme.of(context).primaryColor,
               width: 80,
               height: 20,
+              child: Text(
+                'ل',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
             ),
             Container(
               color: Theme.of(context).primaryColor.withOpacity(0.1),
@@ -243,9 +299,14 @@ class ProtrusionWWL extends StatelessWidget {
               height: 20,
             ),
             Container(
+              alignment: Alignment.center,
               color: Theme.of(context).primaryColor,
               width: 80,
               height: 20,
+              child: Text(
+                'ل',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
             ),
             Container(
               color: Theme.of(context).primaryColor.withOpacity(0.1),
@@ -259,9 +320,14 @@ class ProtrusionWWL extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              alignment: Alignment.center,
               color: Theme.of(context).primaryColor,
               width: 20,
               height: 50,
+              child: Text(
+                'ع',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
             ),
             Container(
               color: Theme.of(context).secondaryHeaderColor,
@@ -269,9 +335,14 @@ class ProtrusionWWL extends StatelessWidget {
               height: 50,
             ),
             Container(
+              alignment: Alignment.center,
               color: Theme.of(context).primaryColor,
               width: 20,
               height: 50,
+              child: Text(
+                'ع',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
             ),
           ],
         ),
@@ -301,9 +372,14 @@ class ProtrusionLLWW extends StatelessWidget {
               height: 20,
             ),
             Container(
+              alignment: Alignment.center,
               color: Theme.of(context).primaryColor,
               width: 80,
               height: 20,
+              child: Text(
+                'ل',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
             ),
             Container(
               color: Theme.of(context).primaryColor.withOpacity(0.1),
@@ -317,9 +393,14 @@ class ProtrusionLLWW extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              alignment: Alignment.center,
               color: Theme.of(context).primaryColor,
               width: 20,
               height: 50,
+              child: Text(
+                'ع',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
             ),
             Container(
               color: Theme.of(context).secondaryHeaderColor,
@@ -327,6 +408,11 @@ class ProtrusionLLWW extends StatelessWidget {
               height: 50,
             ),
             Container(
+              alignment: Alignment.center,
+              child: Text(
+                'ع',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
               color: Theme.of(context).primaryColor,
               width: 20,
               height: 50,
@@ -344,9 +430,14 @@ class ProtrusionLLWW extends StatelessWidget {
               height: 20,
             ),
             Container(
+              alignment: Alignment.center,
               color: Theme.of(context).primaryColor,
               width: 80,
               height: 20,
+              child: Text(
+                'ل',
+                style: TextStyle(color: Colors.white, fontSize: 10.sp),
+              ),
             ),
             Container(
               color: Theme.of(context).primaryColor.withOpacity(0.1),

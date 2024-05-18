@@ -4,6 +4,7 @@ import 'package:schedule_of_residential_projects/core/extensions/size_config.dar
 
 import '../../../core/constants_methods.dart';
 import '../../../core/util/enums.dart';
+import '../../results/pages/underground_works_pdf_viewer.dart';
 import '../widgets/custom_radio_list_tile.dart';
 import '../widgets/field_label.dart';
 import '../widgets/floor_figures.dart';
@@ -18,8 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController lengthCtrl = TextEditingController();
-  TextEditingController widthCtrl = TextEditingController();
+  // TextEditingController lengthCtrl = TextEditingController();
+  // TextEditingController widthCtrl = TextEditingController();
   //TextEditingController heightCtrl = TextEditingController();
   TextEditingController groundFloorAreaCtrl = TextEditingController();
   TextEditingController firstRepeatedFloorAreaCtrl = TextEditingController();
@@ -33,29 +34,35 @@ class _HomePageState extends State<HomePage> {
   double? soilTypegroupVal;
   bool? isAttachedFloorgroupVal;
   int? protrusionNogroupVal;
-  Protrusion? protrusionPositiongroupVal;
+  ProtrusionPosition? protrusionPositiongroupVal;
+  bool isdropdownSoilType = false;
+  bool isdropdownFloorNo = false;
+  bool isdropdowniSAttachedFloor = false;
+  bool isdropdownProtrusionNo = false;
+  bool isdropdownProtrusionPosition = false;
+
   @override
   void initState() {
-    lengthCtrl.addListener(() {
-      if (lengthCtrl.text.trim() != '' && widthCtrl.text.trim() != '') {
-        groundFloorAreaCtrl.text = (int.parse(lengthCtrl.text.trim()) *
-                int.parse(widthCtrl.text.trim()))
-            .toString();
-        setState(() {});
-      } else {
-        groundFloorAreaCtrl.clear();
-      }
-    });
-    widthCtrl.addListener(() {
-      if (lengthCtrl.text.trim() != '' && widthCtrl.text.trim() != '') {
-        groundFloorAreaCtrl.text = (int.parse(lengthCtrl.text.trim()) *
-                int.parse(widthCtrl.text.trim()))
-            .toString();
-        setState(() {});
-      } else {
-        groundFloorAreaCtrl.clear();
-      }
-    });
+    // lengthCtrl.addListener(() {
+    //   if (lengthCtrl.text.trim() != '' && widthCtrl.text.trim() != '') {
+    //     groundFloorAreaCtrl.text = (int.parse(lengthCtrl.text.trim()) *
+    //             int.parse(widthCtrl.text.trim()))
+    //         .toString();
+    //     setState(() {});
+    //   } else {
+    //     groundFloorAreaCtrl.clear();
+    //   }
+    // });
+    // widthCtrl.addListener(() {
+    //   if (lengthCtrl.text.trim() != '' && widthCtrl.text.trim() != '') {
+    //     groundFloorAreaCtrl.text = (int.parse(lengthCtrl.text.trim()) *
+    //             int.parse(widthCtrl.text.trim()))
+    //         .toString();
+    //     setState(() {});
+    //   } else {
+    //     groundFloorAreaCtrl.clear();
+    //   }
+    // });
     groundFloorAreaCtrl.addListener(() {
       listenerOfCalucateBildingTotalAreas(
           bildingTotalAreasCtrl,
@@ -232,8 +239,7 @@ class _HomePageState extends State<HomePage> {
                                               setState(() {
                                                 isHaveCompleteChartsgroupVal =
                                                     index == 0 ? true : false;
-                                                lengthCtrl.clear();
-                                                widthCtrl.clear();
+                                                groundFloorAreaCtrl.clear();
                                                 firstRepeatedFloorAreaCtrl
                                                     .clear();
                                                 secondRepeatedFloorAreaCtrl
@@ -248,6 +254,13 @@ class _HomePageState extends State<HomePage> {
                                                 protrusionNogroupVal = null;
                                                 protrusionPositiongroupVal =
                                                     null;
+                                                isdropdownSoilType = false;
+                                                isdropdownFloorNo = false;
+                                                isdropdowniSAttachedFloor =
+                                                    false;
+                                                isdropdownProtrusionNo = false;
+                                                isdropdownProtrusionPosition =
+                                                    false;
                                               });
                                             },
                                           )),
@@ -257,19 +270,14 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         //isHaveComlleate-charts  options end
-                        //length label and field, width label and field, height label and field,soil-type label and options,floors-number label and options start
+                        //building-area label and field,soil-type label and options,floors-number label and options start
                         isHaveCompleteChartsgroupVal != null
                             ? Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(bottom: 15.h),
-                                    child: const FieldLabel(
-                                      label: 'ادخل طول وعرض الأرضية',
-                                    ),
-                                  ),
-                                  //length label and field start
+                                  //building-area label and field start
+
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 15.h),
                                     child: Column(
@@ -279,13 +287,13 @@ class _HomePageState extends State<HomePage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         const FieldLabel(
-                                          label: 'الطول (م)',
+                                          label: 'مساحة الدور الأرضي (م²)',
                                         ),
                                         SizedBox(
                                           height: 10.h,
                                         ),
                                         TextFormField(
-                                          controller: lengthCtrl,
+                                          controller: groundFloorAreaCtrl,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 16.sp,
@@ -322,7 +330,7 @@ class _HomePageState extends State<HomePage> {
                                           cursorColor: Theme.of(context)
                                               .secondaryHeaderColor,
                                           decoration: InputDecoration(
-                                            hintText: 'الطول (م)',
+                                            hintText: 'ادخل مساحة البناء (م²)',
                                             hintStyle: TextStyle(
                                                 fontSize: 16.sp,
                                                 color: Theme.of(context)
@@ -364,196 +372,8 @@ class _HomePageState extends State<HomePage> {
                                       ],
                                     ),
                                   ),
-                                  //length label and field end
-                                  //width label and field start
-                                  Padding(
-                                    padding: EdgeInsets.only(bottom: 15.h),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const FieldLabel(
-                                          label: 'العرض (م)',
-                                        ),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        TextFormField(
-                                          controller: widthCtrl,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 16.sp,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
-                                          onTap: () {},
-                                          //onChanged: (value) {},
-                                          keyboardType: const TextInputType
-                                              .numberWithOptions(
-                                              decimal: true, signed: false),
+                                  //building-area label and field end
 
-                                          textInputAction: TextInputAction.done,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp(r"[0-9.]")),
-                                            TextInputFormatter.withFunction(
-                                                (oldValue, newValue) {
-                                              final text = newValue.text;
-                                              return text.isEmpty
-                                                  ? newValue
-                                                  : double.tryParse(text) ==
-                                                          null
-                                                      ? oldValue
-                                                      : newValue;
-                                            }),
-                                          ],
-                                          showCursor: true,
-                                          readOnly: false,
-
-                                          // onFieldSubmitted: (value) {},
-                                          onTapOutside: (event) => FocusManager
-                                              .instance.primaryFocus
-                                              ?.unfocus(),
-                                          cursorColor: Theme.of(context)
-                                              .secondaryHeaderColor,
-                                          decoration: InputDecoration(
-                                            hintText: 'العرض (م)',
-                                            hintStyle: TextStyle(
-                                                fontSize: 16.sp,
-                                                color: Theme.of(context)
-                                                    .primaryColor
-                                                    .withOpacity(0.5),
-                                                fontWeight: FontWeight.normal),
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    vertical: 5.h,
-                                                    horizontal: 15.w),
-                                            filled: true,
-                                            fillColor: Theme.of(context)
-                                                .primaryColor
-                                                .withOpacity(0.1),
-                                            enabledBorder:
-                                                const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(24.0)),
-                                              borderSide: BorderSide.none,
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(24.0),
-                                              borderSide: BorderSide.none,
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(24.0),
-                                              borderSide: BorderSide.none,
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(24.0),
-                                              borderSide: BorderSide.none,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  //width label and field end
-                                  //height label and field start
-                                  // Padding(
-                                  //   padding: EdgeInsets.only(bottom: 15.h),
-                                  //   child: Column(
-                                  //     mainAxisAlignment:
-                                  //         MainAxisAlignment.start,
-                                  //     crossAxisAlignment:
-                                  //         CrossAxisAlignment.start,
-                                  //     children: [
-                                  //       const FieldLabel(
-                                  //         label: 'الإرتفاع (م)',
-                                  //       ),
-                                  //       SizedBox(
-                                  //         height: 10.h,
-                                  //       ),
-                                  //       TextFormField(
-                                  //         controller: heightCtrl,
-                                  //         textAlign: TextAlign.center,
-                                  //         style: TextStyle(
-                                  //             fontSize: 16.sp,
-                                  //             color: Colors.black,
-                                  //             fontWeight: FontWeight.bold),
-                                  //         onTap: () {},
-                                  //         //onChanged: (value) {},
-                                  //         keyboardType: const TextInputType
-                                  //             .numberWithOptions(
-                                  //             decimal: true, signed: false),
-
-                                  //         textInputAction: TextInputAction.done,
-                                  //         inputFormatters: [
-                                  //           FilteringTextInputFormatter.allow(
-                                  //               RegExp(r"[0-9.]")),
-                                  //           TextInputFormatter.withFunction(
-                                  //               (oldValue, newValue) {
-                                  //             final text = newValue.text;
-                                  //             return text.isEmpty
-                                  //                 ? newValue
-                                  //                 : double.tryParse(text) ==
-                                  //                         null
-                                  //                     ? oldValue
-                                  //                     : newValue;
-                                  //           }),
-                                  //         ],
-                                  //         showCursor: true,
-                                  //         readOnly: false,
-
-                                  //         // onFieldSubmitted: (value) {},
-                                  //         onTapOutside: (event) => FocusManager
-                                  //             .instance.primaryFocus
-                                  //             ?.unfocus(),
-
-                                  //         decoration: InputDecoration(
-                                  //           hintText: 'الإرتفاع (م)',
-                                  //           hintStyle: TextStyle(
-                                  //               fontSize: 16.sp,
-                                  //               color: const Color(0xFF90A4AE),
-                                  //               fontWeight: FontWeight.normal),
-                                  //           contentPadding:
-                                  //               EdgeInsets.symmetric(
-                                  //                   vertical: 5.h,
-                                  //                   horizontal: 15.w),
-                                  //           filled: true,
-                                  //           fillColor: const Color.fromARGB(
-                                  //                   255, 189, 194, 242)
-                                  //               .withOpacity(0.2),
-                                  //           enabledBorder:
-                                  //               const OutlineInputBorder(
-                                  //             borderRadius: BorderRadius.all(
-                                  //                 Radius.circular(24.0)),
-                                  //             borderSide: BorderSide.none,
-                                  //           ),
-                                  //           focusedBorder: OutlineInputBorder(
-                                  //             borderRadius:
-                                  //                 BorderRadius.circular(24.0),
-                                  //             borderSide: BorderSide.none,
-                                  //           ),
-                                  //           errorBorder: OutlineInputBorder(
-                                  //             borderRadius:
-                                  //                 BorderRadius.circular(24.0),
-                                  //             borderSide: BorderSide.none,
-                                  //           ),
-                                  //           focusedErrorBorder:
-                                  //               OutlineInputBorder(
-                                  //             borderRadius:
-                                  //                 BorderRadius.circular(24.0),
-                                  //             borderSide: BorderSide.none,
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  //height label and field end
                                   //soil-type label and options start
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 15.h),
@@ -563,38 +383,93 @@ class _HomePageState extends State<HomePage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const FieldLabel(
-                                          label: 'نوع التربة',
+                                        Row(
+                                          children: [
+                                            const FieldLabel(
+                                              label: 'نوع التربة',
+                                            ),
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            soilTypegroupVal != null
+                                                ? Text(
+                                                    soilTypegroupVal == 0.02437
+                                                        ? 'قوية'
+                                                        : 'متوسطة',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 16.sp),
+                                                  )
+                                                : SizedBox(),
+                                            SizedBox(
+                                              width: 20.w,
+                                            ),
+                                            InkWell(
+                                              focusColor: Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(0.1),
+                                              hoverColor: Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(0.1),
+                                              highlightColor: Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(0.1),
+                                              splashColor: Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(0.1),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              onTap: () {
+                                                setState(() {
+                                                  isdropdownSoilType =
+                                                      !isdropdownSoilType;
+                                                });
+                                              },
+                                              child: Icon(
+                                                isdropdownSoilType
+                                                    ? Icons.arrow_drop_up
+                                                    : Icons.arrow_drop_down,
+                                                size: 30.sp,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              ),
+                                            )
+                                          ],
                                         ),
                                         SizedBox(
                                           height: 10.h,
                                         ),
-                                        Wrap(
-                                          spacing: 20.w,
-                                          runSpacing: 20.h,
-                                          children: [
-                                            ...List.generate(
-                                                2,
-                                                (index) => CustomRadioListTile(
-                                                      title: index == 0
-                                                          ? 'قوية'
-                                                          : 'متوسطة',
-                                                      value: index == 0
-                                                          ? 0.02437
-                                                          : 0.01716,
-                                                      groupValue:
-                                                          soilTypegroupVal,
-                                                      onTap: () {
-                                                        setState(() {
-                                                          soilTypegroupVal =
-                                                              index == 0
-                                                                  ? 0.02437
-                                                                  : 0.01716;
-                                                        });
-                                                      },
-                                                    )),
-                                          ],
-                                        )
+                                        isdropdownSoilType
+                                            ? Wrap(
+                                                spacing: 20.w,
+                                                runSpacing: 20.h,
+                                                children: [
+                                                  ...List.generate(
+                                                      2,
+                                                      (index) =>
+                                                          CustomRadioListTile(
+                                                            title: index == 0
+                                                                ? 'قوية'
+                                                                : 'متوسطة',
+                                                            value: index == 0
+                                                                ? 0.02437
+                                                                : 0.01716,
+                                                            groupValue:
+                                                                soilTypegroupVal,
+                                                            onTap: () {
+                                                              setState(() {
+                                                                soilTypegroupVal =
+                                                                    index == 0
+                                                                        ? 0.02437
+                                                                        : 0.01716;
+                                                                isdropdownSoilType =
+                                                                    false;
+                                                              });
+                                                            },
+                                                          )),
+                                                ],
+                                              )
+                                            : SizedBox()
                                       ],
                                     ),
                                   ),
@@ -608,54 +483,119 @@ class _HomePageState extends State<HomePage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const FieldLabel(
-                                          label: 'عدد الأدوار',
+                                        Row(
+                                          children: [
+                                            const FieldLabel(
+                                              label: 'عدد الأدوار',
+                                            ),
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            floorNogroupVal != null
+                                                ? Text(
+                                                    floorNogroupVal == 1
+                                                        ? '1 دور'
+                                                        : floorNogroupVal == 2
+                                                            ? '2 دور'
+                                                            : floorNogroupVal ==
+                                                                    3
+                                                                ? '3 دور'
+                                                                : floorNogroupVal ==
+                                                                        4
+                                                                    ? '4 دور'
+                                                                    : '5 دور',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 16.sp),
+                                                  )
+                                                : SizedBox(),
+                                            SizedBox(
+                                              width: 20.w,
+                                            ),
+                                            InkWell(
+                                              focusColor: Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(0.1),
+                                              hoverColor: Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(0.1),
+                                              highlightColor: Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(0.1),
+                                              splashColor: Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(0.1),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              onTap: () {
+                                                setState(() {
+                                                  isdropdownFloorNo =
+                                                      !isdropdownFloorNo;
+                                                });
+                                              },
+                                              child: Icon(
+                                                isdropdownFloorNo
+                                                    ? Icons.arrow_drop_up
+                                                    : Icons.arrow_drop_down,
+                                                size: 30.sp,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              ),
+                                            )
+                                          ],
                                         ),
                                         SizedBox(
                                           height: 10.h,
                                         ),
-                                        Wrap(
-                                          spacing: 20.w,
-                                          runSpacing: 20.h,
-                                          children: [
-                                            ...List.generate(
-                                                5,
-                                                (index) => CustomRadioListTile(
-                                                      title: index == 0
-                                                          ? '1 دور'
-                                                          : index == 1
-                                                              ? '2 دور'
-                                                              : index == 2
-                                                                  ? '3 دور'
-                                                                  : index == 3
-                                                                      ? '4 دور'
-                                                                      : '5 دور',
-                                                      value: index + 1,
-                                                      groupValue:
-                                                          floorNogroupVal,
-                                                      onTap: () {
-                                                        setState(() {
-                                                          floorNogroupVal =
-                                                              index + 1;
-                                                          if (index == 0) {
-                                                            isAttachedFloorgroupVal =
-                                                                null;
-                                                          }
-                                                          listenerOfCalucateBildingTotalAreas(
-                                                              bildingTotalAreasCtrl,
-                                                              [
-                                                                groundFloorAreaCtrl,
-                                                                firstRepeatedFloorAreaCtrl,
-                                                                secondRepeatedFloorAreaCtrl,
-                                                                thirdRepeatedFloorAreaCtrl,
-                                                                fourthRepeatedFloorAreaCtrl
-                                                              ],
-                                                              floorNogroupVal);
-                                                        });
-                                                      },
-                                                    )),
-                                          ],
-                                        )
+                                        isdropdownFloorNo
+                                            ? Wrap(
+                                                spacing: 20.w,
+                                                runSpacing: 20.h,
+                                                children: [
+                                                  ...List.generate(
+                                                      5,
+                                                      (index) =>
+                                                          CustomRadioListTile(
+                                                            title: index == 0
+                                                                ? '1 دور'
+                                                                : index == 1
+                                                                    ? '2 دور'
+                                                                    : index == 2
+                                                                        ? '3 دور'
+                                                                        : index ==
+                                                                                3
+                                                                            ? '4 دور'
+                                                                            : '5 دور',
+                                                            value: index + 1,
+                                                            groupValue:
+                                                                floorNogroupVal,
+                                                            onTap: () {
+                                                              setState(() {
+                                                                floorNogroupVal =
+                                                                    index + 1;
+                                                                if (index ==
+                                                                    0) {
+                                                                  isAttachedFloorgroupVal =
+                                                                      null;
+                                                                }
+                                                                listenerOfCalucateBildingTotalAreas(
+                                                                    bildingTotalAreasCtrl,
+                                                                    [
+                                                                      groundFloorAreaCtrl,
+                                                                      firstRepeatedFloorAreaCtrl,
+                                                                      secondRepeatedFloorAreaCtrl,
+                                                                      thirdRepeatedFloorAreaCtrl,
+                                                                      fourthRepeatedFloorAreaCtrl
+                                                                    ],
+                                                                    floorNogroupVal);
+                                                                isdropdownFloorNo =
+                                                                    false;
+                                                              });
+                                                            },
+                                                          )),
+                                                ],
+                                              )
+                                            : SizedBox()
                                       ],
                                     ),
                                   ),
@@ -663,164 +603,118 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               )
                             : const SizedBox(),
-                        //length label and field, width label and field, height label and field,soil-type label and options,floors-number label and options end
-                        (floorNogroupVal == 1 &&
-                                    isHaveCompleteChartsgroupVal == true) ||
-                                isHaveCompleteChartsgroupVal == false
+                        //building-area label and field,soil-type label and options,floors-number label and options end
+
+                        floorNogroupVal != null && floorNogroupVal != 1
                             ?
-                            //ground-floor label and field start
+                            //is there attached floor? start
                             Padding(
                                 padding: EdgeInsets.only(bottom: 15.h),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const FieldLabel(
-                                      label: 'مساحة الدور الأرضي (م^2)',
+                                    Row(
+                                      children: [
+                                        Icon(Icons.contact_support_rounded,
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        Text(
+                                          'هل يوجد دور ملحق؟',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16.sp),
+                                        ),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        isAttachedFloorgroupVal != null
+                                            ? Text(
+                                                isAttachedFloorgroupVal == true
+                                                    ? 'نعم'
+                                                    : 'لا',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16.sp),
+                                              )
+                                            : SizedBox(),
+                                        SizedBox(
+                                          width: 20.w,
+                                        ),
+                                        InkWell(
+                                          focusColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          hoverColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          highlightColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          splashColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          onTap: () {
+                                            setState(() {
+                                              isdropdowniSAttachedFloor =
+                                                  !isdropdowniSAttachedFloor;
+                                            });
+                                          },
+                                          child: Icon(
+                                            isdropdowniSAttachedFloor
+                                                ? Icons.arrow_drop_up
+                                                : Icons.arrow_drop_down,
+                                            size: 30.sp,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                        )
+                                      ],
                                     ),
                                     SizedBox(
                                       height: 10.h,
                                     ),
-                                    TextFormField(
-                                      controller: groundFloorAreaCtrl,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 16.sp,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                      onTap: () {},
-                                      //onChanged: (value) {},
-                                      // keyboardType: const TextInputType
-                                      //     .numberWithOptions(
-                                      //     decimal: true, signed: false),
-
-                                      // textInputAction: TextInputAction.done,
-                                      // inputFormatters: [
-                                      //   FilteringTextInputFormatter.allow(
-                                      //       RegExp(r"[0-9.]")),
-                                      //   TextInputFormatter.withFunction(
-                                      //       (oldValue, newValue) {
-                                      //     final text = newValue.text;
-                                      //     return text.isEmpty
-                                      //         ? newValue
-                                      //         : double.tryParse(text) ==
-                                      //                 null
-                                      //             ? oldValue
-                                      //             : newValue;
-                                      //   }),
-                                      // ],
-                                      showCursor: false,
-                                      readOnly: true,
-
-                                      // onFieldSubmitted: (value) {},
-                                      // onTapOutside: (event) => FocusManager
-                                      //     .instance.primaryFocus
-                                      //     ?.unfocus(),
-                                      cursorColor: Theme.of(context)
-                                          .secondaryHeaderColor,
-                                      decoration: InputDecoration(
-                                        hintText: '(الطول*العرض)م^2',
-                                        hintStyle: TextStyle(
-                                            fontSize: 16.sp,
-                                            color: Theme.of(context)
-                                                .primaryColor
-                                                .withOpacity(0.5),
-                                            fontWeight: FontWeight.normal),
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 5.h, horizontal: 15.w),
-                                        filled: true,
-                                        fillColor: Theme.of(context)
-                                            .primaryColor
-                                            .withOpacity(0.1),
-                                        enabledBorder: const OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(24.0)),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(24.0),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(24.0),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(24.0),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                      ),
-                                    ),
+                                    isdropdowniSAttachedFloor
+                                        ? Wrap(
+                                            spacing: 20.w,
+                                            runSpacing: 20.h,
+                                            children: [
+                                              ...List.generate(
+                                                  2,
+                                                  (index) =>
+                                                      CustomRadioListTile(
+                                                        title: index == 0
+                                                            ? 'نعم'
+                                                            : 'لا',
+                                                        value: index == 0
+                                                            ? true
+                                                            : false,
+                                                        groupValue:
+                                                            isAttachedFloorgroupVal,
+                                                        onTap: () {
+                                                          setState(() {
+                                                            isAttachedFloorgroupVal =
+                                                                index == 0
+                                                                    ? true
+                                                                    : false;
+                                                            isdropdowniSAttachedFloor =
+                                                                false;
+                                                          });
+                                                        },
+                                                      )),
+                                            ],
+                                          )
+                                        : SizedBox(),
                                   ],
                                 ),
                               )
-                            //ground-floor label and field end
-                            : floorNogroupVal != null
-                                ?
-                                //is there attached floor? start
-                                Padding(
-                                    padding: EdgeInsets.only(bottom: 15.h),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(Icons.contact_support_rounded,
-                                                color: Theme.of(context)
-                                                    .primaryColor),
-                                            SizedBox(
-                                              width: 5.w,
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                'هل يوجد دور ملحق؟',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 16.sp),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        Wrap(
-                                          spacing: 20.w,
-                                          runSpacing: 20.h,
-                                          children: [
-                                            ...List.generate(
-                                                2,
-                                                (index) => CustomRadioListTile(
-                                                      title: index == 0
-                                                          ? 'نعم'
-                                                          : 'لا',
-                                                      value: index == 0
-                                                          ? true
-                                                          : false,
-                                                      groupValue:
-                                                          isAttachedFloorgroupVal,
-                                                      onTap: () {
-                                                        setState(() {
-                                                          isAttachedFloorgroupVal =
-                                                              index == 0
-                                                                  ? true
-                                                                  : false;
-                                                        });
-                                                      },
-                                                    )),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                //is there attached floor? end
-                                : const SizedBox(),
+                            //is there attached floor? end
+                            : const SizedBox(),
                         isAttachedFloorgroupVal == true &&
                                 isHaveCompleteChartsgroupVal == true
                             ?
@@ -830,7 +724,7 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ...List.generate(
-                                      floorNogroupVal!,
+                                      floorNogroupVal! - 1,
                                       (index) => Padding(
                                             padding:
                                                 EdgeInsets.only(bottom: 15.h),
@@ -841,33 +735,28 @@ class _HomePageState extends State<HomePage> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 FieldLabel(
-                                                  label: index == 0
-                                                      ? 'مساحة الدور الأرضي (م^2)'
-                                                      : index ==
-                                                              floorNogroupVal! -
-                                                                  1
-                                                          ? 'مساحة الدور الملحق (م^2)'
+                                                  label: index ==
+                                                          floorNogroupVal! - 2
+                                                      ? 'مساحة الدور الملحق (م²)'
+                                                      : index == 0
+                                                          ? 'مساحة الدور المتكرر الأول (م²)'
                                                           : index == 1
-                                                              ? 'مساحة الدور المتكرر الأول (م^2)'
+                                                              ? 'مساحة الدور المتكرر الثاني (م²)'
                                                               : index == 2
-                                                                  ? 'مساحة الدور المتكرر الثاني (م^2)'
-                                                                  : index == 3
-                                                                      ? 'مساحة الدور المتكرر الثالث (م^2)'
-                                                                      : '',
+                                                                  ? 'مساحة الدور المتكرر الثالث (م²)'
+                                                                  : '',
                                                 ),
                                                 SizedBox(
                                                   height: 10.h,
                                                 ),
                                                 TextFormField(
                                                   controller: index == 0
-                                                      ? groundFloorAreaCtrl
+                                                      ? firstRepeatedFloorAreaCtrl
                                                       : index == 1
-                                                          ? firstRepeatedFloorAreaCtrl
+                                                          ? secondRepeatedFloorAreaCtrl
                                                           : index == 2
-                                                              ? secondRepeatedFloorAreaCtrl
-                                                              : index == 3
-                                                                  ? thirdRepeatedFloorAreaCtrl
-                                                                  : fourthRepeatedFloorAreaCtrl,
+                                                              ? thirdRepeatedFloorAreaCtrl
+                                                              : fourthRepeatedFloorAreaCtrl,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 16.sp,
@@ -876,39 +765,34 @@ class _HomePageState extends State<HomePage> {
                                                           FontWeight.bold),
                                                   onTap: () {},
                                                   //onChanged: (value) {},
-                                                  keyboardType: index == 0
-                                                      ? null
-                                                      : const TextInputType
+                                                  keyboardType:
+                                                      const TextInputType
                                                           .numberWithOptions(
                                                           decimal: true,
                                                           signed: false),
 
-                                                  textInputAction: index == 0
-                                                      ? null
-                                                      : TextInputAction.done,
-                                                  inputFormatters: index == 0
-                                                      ? null
-                                                      : [
-                                                          FilteringTextInputFormatter
-                                                              .allow(RegExp(
-                                                                  r"[0-9.]")),
-                                                          TextInputFormatter
-                                                              .withFunction(
-                                                                  (oldValue,
-                                                                      newValue) {
-                                                            final text =
-                                                                newValue.text;
-                                                            return text.isEmpty
-                                                                ? newValue
-                                                                : double.tryParse(
-                                                                            text) ==
-                                                                        null
-                                                                    ? oldValue
-                                                                    : newValue;
-                                                          }),
-                                                        ],
-                                                  showCursor: index != 0,
-                                                  readOnly: index == 0,
+                                                  textInputAction:
+                                                      TextInputAction.done,
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter
+                                                        .allow(
+                                                            RegExp(r"[0-9.]")),
+                                                    TextInputFormatter
+                                                        .withFunction((oldValue,
+                                                            newValue) {
+                                                      final text =
+                                                          newValue.text;
+                                                      return text.isEmpty
+                                                          ? newValue
+                                                          : double.tryParse(
+                                                                      text) ==
+                                                                  null
+                                                              ? oldValue
+                                                              : newValue;
+                                                    }),
+                                                  ],
+                                                  showCursor: true,
+                                                  readOnly: false,
 
                                                   // onFieldSubmitted: (value) {},
                                                   onTapOutside: index == 0
@@ -919,19 +803,16 @@ class _HomePageState extends State<HomePage> {
                                                   cursorColor: Theme.of(context)
                                                       .secondaryHeaderColor,
                                                   decoration: InputDecoration(
-                                                    hintText: index == 0
-                                                        ? '(الطول*العرض)م^2'
-                                                        : index ==
-                                                                floorNogroupVal! -
-                                                                    1
-                                                            ? 'مساحة الدور الملحق (م^2)'
+                                                    hintText: index ==
+                                                            floorNogroupVal! - 2
+                                                        ? 'مساحة الدور الملحق (م²)'
+                                                        : index == 0
+                                                            ? 'مساحة الدور المتكرر الأول (م²)'
                                                             : index == 1
-                                                                ? 'مساحة الدور المتكرر الأول (م^2)'
+                                                                ? 'مساحة الدور المتكرر الثاني (م²)'
                                                                 : index == 2
-                                                                    ? 'مساحة الدور المتكرر الثاني (م^2)'
-                                                                    : index == 3
-                                                                        ? 'مساحة الدور المتكرر الثالث (م^2)'
-                                                                        : '',
+                                                                    ? 'مساحة الدور المتكرر الثالث (م²)'
+                                                                    : '',
                                                     hintStyle: TextStyle(
                                                         fontSize: 16.sp,
                                                         color: Theme.of(context)
@@ -998,7 +879,7 @@ class _HomePageState extends State<HomePage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       ...List.generate(
-                                          floorNogroupVal!,
+                                          floorNogroupVal! - 1,
                                           (index) => Padding(
                                                 padding: EdgeInsets.only(
                                                     bottom: 15.h),
@@ -1010,28 +891,24 @@ class _HomePageState extends State<HomePage> {
                                                   children: [
                                                     FieldLabel(
                                                       label: index == 0
-                                                          ? 'مساحة الدور الأرضي (م^2)'
+                                                          ? 'مساحة الدور المتكرر الأول (م²)'
                                                           : index == 1
-                                                              ? 'مساحة الدور المتكرر الأول (م^2)'
+                                                              ? 'مساحة الدور المتكرر الثاني (م²)'
                                                               : index == 2
-                                                                  ? 'مساحة الدور المتكرر الثاني (م^2)'
-                                                                  : index == 3
-                                                                      ? 'مساحة الدور المتكرر الثالث (م^2)'
-                                                                      : 'مساحة الدور المتكرر الرابع (م^2)',
+                                                                  ? 'مساحة الدور المتكرر الثالث (م²)'
+                                                                  : 'مساحة الدور المتكرر الرابع (م²)',
                                                     ),
                                                     SizedBox(
                                                       height: 10.h,
                                                     ),
                                                     TextFormField(
                                                       controller: index == 0
-                                                          ? groundFloorAreaCtrl
+                                                          ? firstRepeatedFloorAreaCtrl
                                                           : index == 1
-                                                              ? firstRepeatedFloorAreaCtrl
+                                                              ? secondRepeatedFloorAreaCtrl
                                                               : index == 2
-                                                                  ? secondRepeatedFloorAreaCtrl
-                                                                  : index == 3
-                                                                      ? thirdRepeatedFloorAreaCtrl
-                                                                      : fourthRepeatedFloorAreaCtrl,
+                                                                  ? thirdRepeatedFloorAreaCtrl
+                                                                  : fourthRepeatedFloorAreaCtrl,
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -1041,66 +918,53 @@ class _HomePageState extends State<HomePage> {
                                                               FontWeight.bold),
                                                       onTap: () {},
                                                       //onChanged: (value) {},
-                                                      keyboardType: index == 0
-                                                          ? null
-                                                          : const TextInputType
+                                                      keyboardType:
+                                                          const TextInputType
                                                               .numberWithOptions(
                                                               decimal: true,
                                                               signed: false),
 
                                                       textInputAction:
-                                                          index == 0
-                                                              ? null
-                                                              : TextInputAction
-                                                                  .done,
-                                                      inputFormatters:
-                                                          index == 0
-                                                              ? null
-                                                              : [
-                                                                  FilteringTextInputFormatter
-                                                                      .allow(RegExp(
-                                                                          r"[0-9.]")),
-                                                                  TextInputFormatter
-                                                                      .withFunction(
-                                                                          (oldValue,
-                                                                              newValue) {
-                                                                    final text =
-                                                                        newValue
-                                                                            .text;
-                                                                    return text
-                                                                            .isEmpty
-                                                                        ? newValue
-                                                                        : double.tryParse(text) ==
-                                                                                null
-                                                                            ? oldValue
-                                                                            : newValue;
-                                                                  }),
-                                                                ],
-                                                      showCursor: index != 0,
-                                                      readOnly: index == 0,
+                                                          TextInputAction.done,
+                                                      inputFormatters: [
+                                                        FilteringTextInputFormatter
+                                                            .allow(RegExp(
+                                                                r"[0-9.]")),
+                                                        TextInputFormatter
+                                                            .withFunction(
+                                                                (oldValue,
+                                                                    newValue) {
+                                                          final text =
+                                                              newValue.text;
+                                                          return text.isEmpty
+                                                              ? newValue
+                                                              : double.tryParse(
+                                                                          text) ==
+                                                                      null
+                                                                  ? oldValue
+                                                                  : newValue;
+                                                        }),
+                                                      ],
+                                                      showCursor: true,
+                                                      readOnly: false,
 
                                                       // onFieldSubmitted: (value) {},
-                                                      onTapOutside: index == 0
-                                                          ? null
-                                                          : (event) =>
-                                                              FocusManager
-                                                                  .instance
-                                                                  .primaryFocus
-                                                                  ?.unfocus(),
+                                                      onTapOutside: (event) =>
+                                                          FocusManager.instance
+                                                              .primaryFocus
+                                                              ?.unfocus(),
                                                       cursorColor: Theme.of(
                                                               context)
                                                           .secondaryHeaderColor,
                                                       decoration:
                                                           InputDecoration(
                                                         hintText: index == 0
-                                                            ? '(الطول*العرض)م^2'
+                                                            ? 'مساحة الدور المتكرر الأول (م²)'
                                                             : index == 1
-                                                                ? 'مساحة الدور المتكرر الأول (م^2)'
+                                                                ? 'مساحة الدور المتكرر الثاني (م²)'
                                                                 : index == 2
-                                                                    ? 'مساحة الدور المتكرر الثاني (م^2)'
-                                                                    : index == 3
-                                                                        ? 'مساحة الدور المتكرر الثالث (م^2)'
-                                                                        : 'مساحة الدور المتكرر الرابع (م^2)',
+                                                                    ? 'مساحة الدور المتكرر الثالث (م²)'
+                                                                    : 'مساحة الدور المتكرر الرابع (م²)',
                                                         hintStyle: TextStyle(
                                                             fontSize: 16.sp,
                                                             color: Theme.of(
@@ -1179,47 +1043,111 @@ class _HomePageState extends State<HomePage> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const FieldLabel(
-                                      label: 'عدد البروز',
+                                    Row(
+                                      children: [
+                                        const FieldLabel(
+                                          label: 'عدد البروز',
+                                        ),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        protrusionNogroupVal != null
+                                            ? Text(
+                                                protrusionNogroupVal == 0
+                                                    ? 'بدون بروز'
+                                                    : protrusionNogroupVal == 1
+                                                        ? '1 بروز'
+                                                        : protrusionNogroupVal ==
+                                                                2
+                                                            ? '2 بروز'
+                                                            : protrusionNogroupVal ==
+                                                                    3
+                                                                ? '3 بروز'
+                                                                : '4 بروز',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16.sp),
+                                              )
+                                            : SizedBox(),
+                                        SizedBox(
+                                          width: 20.w,
+                                        ),
+                                        InkWell(
+                                          focusColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          hoverColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          highlightColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          splashColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          onTap: () {
+                                            setState(() {
+                                              isdropdownProtrusionNo =
+                                                  !isdropdownProtrusionNo;
+                                            });
+                                          },
+                                          child: Icon(
+                                            isdropdownProtrusionNo
+                                                ? Icons.arrow_drop_up
+                                                : Icons.arrow_drop_down,
+                                            size: 30.sp,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                        )
+                                      ],
                                     ),
                                     SizedBox(
                                       height: 10.h,
                                     ),
-                                    Wrap(
-                                      spacing: 20.w,
-                                      runSpacing: 20.h,
-                                      children: [
-                                        ...List.generate(
-                                            5,
-                                            (index) => CustomRadioListTile(
-                                                  title: index == 0
-                                                      ? 'بدون بروز'
-                                                      : index == 1
-                                                          ? '1 بروز'
-                                                          : index == 2
-                                                              ? '2 بروز'
-                                                              : index == 3
-                                                                  ? '3 بروز'
-                                                                  : '4 بروز',
-                                                  value: index,
-                                                  groupValue:
-                                                      protrusionNogroupVal,
-                                                  onTap: () {
-                                                    setState(() {
-                                                      protrusionNogroupVal =
-                                                          index;
-                                                      if (index == 4) {
-                                                        protrusionPositiongroupVal =
-                                                            Protrusion.llww;
-                                                      } else {
-                                                        protrusionPositiongroupVal =
-                                                            null;
-                                                      }
-                                                    });
-                                                  },
-                                                )),
-                                      ],
-                                    )
+                                    isdropdownProtrusionNo
+                                        ? Wrap(
+                                            spacing: 20.w,
+                                            runSpacing: 20.h,
+                                            children: [
+                                              ...List.generate(
+                                                  5,
+                                                  (index) =>
+                                                      CustomRadioListTile(
+                                                        title: index == 0
+                                                            ? 'بدون بروز'
+                                                            : index == 1
+                                                                ? '1 بروز'
+                                                                : index == 2
+                                                                    ? '2 بروز'
+                                                                    : index == 3
+                                                                        ? '3 بروز'
+                                                                        : '4 بروز',
+                                                        value: index,
+                                                        groupValue:
+                                                            protrusionNogroupVal,
+                                                        onTap: () {
+                                                          setState(() {
+                                                            protrusionNogroupVal =
+                                                                index;
+                                                            if (index == 4) {
+                                                              protrusionPositiongroupVal =
+                                                                  ProtrusionPosition
+                                                                      .llww;
+                                                            } else {
+                                                              protrusionPositiongroupVal =
+                                                                  null;
+                                                            }
+                                                            isdropdownProtrusionNo =
+                                                                false;
+                                                          });
+                                                        },
+                                                      )),
+                                            ],
+                                          )
+                                        : SizedBox()
                                   ],
                                 ),
                               )
@@ -1235,43 +1163,105 @@ class _HomePageState extends State<HomePage> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const FieldLabel(
-                                      label: 'مواضع البروز',
+                                    Row(
+                                      children: [
+                                        const FieldLabel(
+                                          label: 'مواضع البروز',
+                                        ),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        protrusionPositiongroupVal != null
+                                            ? Text(
+                                                protrusionPositiongroupVal!
+                                                    .name,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16.sp),
+                                              )
+                                            : SizedBox(),
+                                        SizedBox(
+                                          width: 20.w,
+                                        ),
+                                        InkWell(
+                                          focusColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          hoverColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          highlightColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          splashColor: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          onTap: () {
+                                            setState(() {
+                                              isdropdownProtrusionPosition =
+                                                  !isdropdownProtrusionPosition;
+                                            });
+                                          },
+                                          child: Icon(
+                                            isdropdownProtrusionPosition
+                                                ? Icons.arrow_drop_up
+                                                : Icons.arrow_drop_down,
+                                            size: 30.sp,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    protrusionNogroupVal == 1
-                                        ? Wrap(
-                                            spacing: 20.w,
-                                            runSpacing: 20.h,
+                                    protrusionNogroupVal == 1 &&
+                                            isdropdownProtrusionPosition
+                                        ? Column(
                                             children: [
-                                              ...List.generate(
-                                                  2,
-                                                  (index) =>
-                                                      FloorFiguresRadioListTile(
-                                                        protrusion: index == 0
-                                                            ? const ProtrusionL()
-                                                            : const ProtrusionW(),
-                                                        value: index == 0
-                                                            ? Protrusion.l
-                                                            : Protrusion.w,
-                                                        groupValue:
-                                                            protrusionPositiongroupVal,
-                                                        onTap: () {
-                                                          setState(() {
-                                                            protrusionPositiongroupVal =
-                                                                index == 0
-                                                                    ? Protrusion
-                                                                        .l
-                                                                    : Protrusion
-                                                                        .w;
-                                                          });
-                                                        },
-                                                      )),
+                                              Text(
+                                                  'ل: من الجهة الطويلة, ع: من الجهة القصيرة'),
+                                              SizedBox(
+                                                height: 10.h,
+                                              ),
+                                              Wrap(
+                                                spacing: 20.w,
+                                                runSpacing: 20.h,
+                                                children: [
+                                                  ...List.generate(
+                                                      2,
+                                                      (index) =>
+                                                          FloorFiguresRadioListTile(
+                                                            protrusion: index ==
+                                                                    0
+                                                                ? const ProtrusionL()
+                                                                : const ProtrusionW(),
+                                                            value: index == 0
+                                                                ? ProtrusionPosition
+                                                                    .l
+                                                                : ProtrusionPosition
+                                                                    .w,
+                                                            groupValue:
+                                                                protrusionPositiongroupVal,
+                                                            onTap: () {
+                                                              setState(() {
+                                                                protrusionPositiongroupVal =
+                                                                    index == 0
+                                                                        ? ProtrusionPosition
+                                                                            .l
+                                                                        : ProtrusionPosition
+                                                                            .w;
+                                                                isdropdownProtrusionPosition =
+                                                                    false;
+                                                              });
+                                                            },
+                                                          )),
+                                                ],
+                                              ),
                                             ],
                                           )
-                                        : protrusionNogroupVal == 2
+                                        : protrusionNogroupVal == 2 &&
+                                                isdropdownProtrusionPosition
                                             ? Wrap(
                                                 spacing: 20.w,
                                                 runSpacing: 20.h,
@@ -1287,11 +1277,12 @@ class _HomePageState extends State<HomePage> {
                                                                     ? const ProtrusionWW()
                                                                     : const ProtrusionWL(),
                                                             value: index == 0
-                                                                ? Protrusion.ll
+                                                                ? ProtrusionPosition
+                                                                    .ll
                                                                 : index == 1
-                                                                    ? Protrusion
+                                                                    ? ProtrusionPosition
                                                                         .ww
-                                                                    : Protrusion
+                                                                    : ProtrusionPosition
                                                                         .wl,
                                                             groupValue:
                                                                 protrusionPositiongroupVal,
@@ -1299,19 +1290,22 @@ class _HomePageState extends State<HomePage> {
                                                               setState(() {
                                                                 protrusionPositiongroupVal = index ==
                                                                         0
-                                                                    ? Protrusion
+                                                                    ? ProtrusionPosition
                                                                         .ll
                                                                     : index == 1
-                                                                        ? Protrusion
+                                                                        ? ProtrusionPosition
                                                                             .ww
-                                                                        : Protrusion
+                                                                        : ProtrusionPosition
                                                                             .wl;
+                                                                isdropdownProtrusionPosition =
+                                                                    false;
                                                               });
                                                             },
                                                           )),
                                                 ],
                                               )
-                                            : protrusionNogroupVal == 3
+                                            : protrusionNogroupVal == 3 &&
+                                                    isdropdownProtrusionPosition
                                                 ? Wrap(
                                                     spacing: 20.w,
                                                     runSpacing: 20.h,
@@ -1326,9 +1320,9 @@ class _HomePageState extends State<HomePage> {
                                                                     : const ProtrusionWWL(),
                                                                 value: index ==
                                                                         0
-                                                                    ? Protrusion
+                                                                    ? ProtrusionPosition
                                                                         .llw
-                                                                    : Protrusion
+                                                                    : ProtrusionPosition
                                                                         .wwl,
                                                                 groupValue:
                                                                     protrusionPositiongroupVal,
@@ -1336,40 +1330,46 @@ class _HomePageState extends State<HomePage> {
                                                                   setState(() {
                                                                     protrusionPositiongroupVal = index ==
                                                                             0
-                                                                        ? Protrusion
+                                                                        ? ProtrusionPosition
                                                                             .llw
-                                                                        : Protrusion
+                                                                        : ProtrusionPosition
                                                                             .wwl;
+                                                                    isdropdownProtrusionPosition =
+                                                                        false;
                                                                   });
                                                                 },
                                                               )),
                                                     ],
                                                   )
-                                                : Wrap(
-                                                    spacing: 20.w,
-                                                    runSpacing: 20.h,
-                                                    children: [
-                                                      ...List.generate(
-                                                          1,
-                                                          (index) =>
-                                                              FloorFiguresRadioListTile(
-                                                                protrusion:
-                                                                    const ProtrusionLLWW(),
-                                                                value:
-                                                                    Protrusion
-                                                                        .llww,
-                                                                groupValue:
-                                                                    protrusionPositiongroupVal,
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    protrusionPositiongroupVal =
-                                                                        Protrusion
-                                                                            .llww;
-                                                                  });
-                                                                },
-                                                              )),
-                                                    ],
-                                                  )
+                                                : isdropdownProtrusionPosition
+                                                    ? Wrap(
+                                                        spacing: 20.w,
+                                                        runSpacing: 20.h,
+                                                        children: [
+                                                          ...List.generate(
+                                                              1,
+                                                              (index) =>
+                                                                  FloorFiguresRadioListTile(
+                                                                    protrusion:
+                                                                        const ProtrusionLLWW(),
+                                                                    value:
+                                                                        ProtrusionPosition
+                                                                            .llww,
+                                                                    groupValue:
+                                                                        protrusionPositiongroupVal,
+                                                                    onTap: () {
+                                                                      setState(
+                                                                          () {
+                                                                        protrusionPositiongroupVal =
+                                                                            ProtrusionPosition.llww;
+                                                                        isdropdownProtrusionPosition =
+                                                                            false;
+                                                                      });
+                                                                    },
+                                                                  )),
+                                                        ],
+                                                      )
+                                                    : SizedBox()
                                   ],
                                 ),
                               ),
@@ -1383,7 +1383,7 @@ class _HomePageState extends State<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const FieldLabel(
-                                      label: 'مجموع المساحات (م^2)',
+                                      label: 'مجموع المساحات (م²)',
                                     ),
                                     SizedBox(
                                       height: 10.h,
@@ -1545,11 +1545,12 @@ class _HomePageState extends State<HomePage> {
                                       borderRadius:
                                           BorderRadius.circular(10.sp))),
                               onPressed: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder: (_) => const FillYourFullAddressPage(),
-                                //     ));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          const UnderGroundWorksPDFViewer(),
+                                    ));
                               },
                               child: Text(
                                 'عرض النتائج',

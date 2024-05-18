@@ -5,6 +5,7 @@ import 'package:schedule_of_residential_projects/core/extensions/size_config.dar
 import 'package:schedule_of_residential_projects/features/instructions/pages/instructions_page.dart';
 
 import 'features/about_app/pages/about_app_page.dart';
+import 'features/connect_us/pages/connect_us_page.dart';
 import 'features/home/pages/home_page.dart';
 import 'features/who_we/pages/who_we_page.dart';
 
@@ -63,7 +64,7 @@ class _MainPageState extends State<MainPage> {
       child: DrawerWidget(
         onSelectedItem: (item) {
           switch (item) {
-            case DrawerItems.shareApp || DrawerItems.connect:
+            case DrawerItems.shareApp:
               //share pop
               return;
             default:
@@ -123,12 +124,16 @@ class _MainPageState extends State<MainPage> {
 
   Widget getDrawerPage() {
     switch (item) {
+      case DrawerItems.aboutApp:
+        return AboutAppPage(
+          openDrawer: openDrawer,
+        );
       case DrawerItems.instructions:
         return InstructionsPage(
           openDrawer: openDrawer,
         );
-      case DrawerItems.aboutApp:
-        return AboutAppPage(
+      case DrawerItems.connect:
+        return ConnectUsPage(
           openDrawer: openDrawer,
         );
       case DrawerItems.whoWe:
@@ -203,24 +208,24 @@ class DrawerItem {
 class DrawerItems {
   static const scheduleCalucate =
       DrawerItem(title: 'حساب الجدول الزمني', icon: Icons.timelapse);
+  static const aboutApp =
+      DrawerItem(title: 'لمحة عن التطبيق', icon: CupertinoIcons.info_circle);
   static const instructions =
       DrawerItem(title: 'إرشادات', icon: Icons.integration_instructions);
-  static const aboutApp =
-      DrawerItem(title: 'عن التطبيق', icon: CupertinoIcons.info_circle);
+  static const connect =
+      DrawerItem(title: 'تواصل معنا', icon: CupertinoIcons.phone);
   static const whoWe = DrawerItem(
     title: 'من نحن',
     icon: Icons.contact_support_rounded,
   );
-  static const connect =
-      DrawerItem(title: 'تواصل معنا', icon: CupertinoIcons.phone);
   static const shareApp =
       DrawerItem(title: 'مشاركة التطبيق', icon: Icons.share);
   static final List<DrawerItem> all = [
     scheduleCalucate,
-    instructions,
     aboutApp,
-    whoWe,
+    instructions,
     connect,
+    whoWe,
     shareApp
   ];
 }

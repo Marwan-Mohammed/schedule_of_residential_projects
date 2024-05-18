@@ -60,145 +60,21 @@ class InstructionsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              // Expanded(
-              //   child: SingleChildScrollView(
-              //     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.start,
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Column(
-              //           mainAxisAlignment: MainAxisAlignment.start,
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           children: [
-              //             Text(
-              //               'المقدمة',
-              //               style: TextStyle(
-              //                   // height: 3.h,
-              //                   color: Theme.of(context)
-              //                       .primaryColor
-              //                       .withOpacity(0.8),
-              //                   fontSize: 18.sp,
-              //                   fontWeight: FontWeight.bold),
-              //               textAlign: TextAlign.justify,
-              //             ),
-              //             SizedBox(
-              //               height: 10.h,
-              //             ),
-              //             Text(
-              //               '''مجرد نص''',
-              //               style: TextStyle(
-              //                   //  height: 2.h,
-              //                   fontSize: 16.sp),
-              //               textAlign: TextAlign.justify,
-              //             ),
-              //           ],
-              //         ),
-              //         SizedBox(height: 15.h),
-              //         Column(
-              //           mainAxisAlignment: MainAxisAlignment.start,
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           children: [
-              //             Text(
-              //               'الإرشادات',
-              //               style: TextStyle(
-              //                   // height: 3.h,
-              //                   color: Theme.of(context)
-              //                       .primaryColor
-              //                       .withOpacity(0.8),
-              //                   fontSize: 18,
-              //                   fontWeight: FontWeight.bold),
-              //               textAlign: TextAlign.justify,
-              //             ),
-              //             SizedBox(
-              //               height: 10.h,
-              //             ),
-              //             Text(
-              //               '''مجرد نص''',
-              //               style: TextStyle(
-              //                   //  height: 2.h,
-              //                   fontSize: 16.sp),
-              //               textAlign: TextAlign.justify,
-              //             ),
-              //           ],
-              //         ),
-              //         SizedBox(height: 15.h),
-              //         Column(
-              //           mainAxisAlignment: MainAxisAlignment.start,
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           children: [
-              //             Text(
-              //               'فريق العمل',
-              //               style: TextStyle(
-              //                   // height: 3.h,
-              //                   color: Theme.of(context)
-              //                       .primaryColor
-              //                       .withOpacity(0.8),
-              //                   fontSize: 18.sp,
-              //                   fontWeight: FontWeight.bold),
-              //               textAlign: TextAlign.justify,
-              //             ),
-              //             SizedBox(
-              //               height: 10.h,
-              //             ),
-              //             RichText(
-              //               text: TextSpan(
-              //                   text: 'اسم الدكتور: ',
-              //                   style: TextStyle(
-              //                     color: Colors.black,
-              //                     fontSize: 16.sp,
-              //                     fontWeight: FontWeight.bold,
-              //                     fontFamily: 'Almarai',
-              //                   ),
-              //                   children: <TextSpan>[
-              //                     TextSpan(
-              //                         text: 'سعيد عمر بالبيد',
-              //                         style: TextStyle(
-              //                           color: Colors.black,
-              //                           fontSize: 16.sp,
-              //                           fontWeight: FontWeight.normal,
-              //                           fontFamily: 'Almarai',
-              //                         )),
-              //                   ]),
-              //             ),
-              //             SizedBox(
-              //               height: 15.h,
-              //             ),
-              //             RichText(
-              //               text: TextSpan(
-              //                   text: 'أسماء أعضاء القروب:\n',
-              //                   style: TextStyle(
-              //                     color: Colors.black,
-              //                     height: 1.5,
-              //                     fontSize: 16.sp,
-              //                     fontWeight: FontWeight.bold,
-              //                     fontFamily: 'Almarai',
-              //                   ),
-              //                   children: <TextSpan>[
-              //                     TextSpan(
-              //                         text: '''
-              // أسامة خالد باشامخة.
-              // حسن سعيد ربيع باغزال.
-              // عبدالرحمن خالد التميمي.
-              // عمر طالب بن شملان.
-              // فريد محسن التميمي.
-              // مهند محمد التميمي.
-              //   ''',
-              //                         style: TextStyle(
-              //                           height: 1.7.h,
-              //                           color: Colors.black,
-              //                           fontSize: 16.sp,
-              //                           fontWeight: FontWeight.normal,
-              //                           fontFamily: 'Almarai',
-              //                         )),
-              //                   ]),
-              //             ),
-              //           ],
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                  child: Text(
+                    '''- التطبيق معد لحساب الجدول الزمني للمباني السكنية ( اعمال العظم )
+- البرنامج يحسب الجدول الزمني حتى لخمسه ادوار. 
+- إماكنية إخراج التقرير على صورة ملف Pdf. 
+- ادخال مساحة البناء وليست مساحة الارض
+- في حالة ليس لديك مخخطات كافية يمكنك اختيار شكل الدور المتكرر بناءً على موضع البروز الموضح في حقل البروزات.''',
+                    style: TextStyle(height: 2.h, fontSize: 16.sp),
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
+              ),
             ],
           ),
         )),
