@@ -4,7 +4,7 @@ import 'package:schedule_of_residential_projects/core/extensions/size_config.dar
 
 import '../../../core/constants_methods.dart';
 import '../../../core/util/enums.dart';
-import '../../results/pages/underground_works_pdf_viewer.dart';
+import '../../results/pages/schedule_pdf_viewer.dart';
 import '../widgets/custom_radio_list_tile.dart';
 import '../widgets/field_label.dart';
 //import '../widgets/floor_figures.dart';
@@ -1592,7 +1592,8 @@ class _HomePageState extends State<HomePage> {
   TextEditingController secondRepeatedFloorAreaCtrl = TextEditingController();
   TextEditingController thirdRepeatedFloorAreaCtrl = TextEditingController();
   TextEditingController fourthRepeatedFloorAreaCtrl = TextEditingController();
-  TextEditingController bildingTotalAreasCtrl = TextEditingController();
+  TextEditingController attachedFloorCtrl = TextEditingController();
+  //TextEditingController bildingTotalAreasCtrl = TextEditingController();
   TextEditingController ownerCtrl = TextEditingController();
   int? floorNogroupVal;
   double? soilTypegroupVal;
@@ -1606,71 +1607,71 @@ class _HomePageState extends State<HomePage> {
       List.empty(growable: true);
   @override
   void initState() {
-    groundFloorAreaCtrl.addListener(() {
-      listenerOfCalucateBildingTotalAreas(
-          bildingTotalAreasCtrl,
-          [
-            groundFloorAreaCtrl,
-            firstRepeatedFloorAreaCtrl,
-            secondRepeatedFloorAreaCtrl,
-            thirdRepeatedFloorAreaCtrl,
-            fourthRepeatedFloorAreaCtrl
-          ],
-          floorNogroupVal);
-      setState(() {});
-    });
-    firstRepeatedFloorAreaCtrl.addListener(() {
-      listenerOfCalucateBildingTotalAreas(
-          bildingTotalAreasCtrl,
-          [
-            groundFloorAreaCtrl,
-            firstRepeatedFloorAreaCtrl,
-            secondRepeatedFloorAreaCtrl,
-            thirdRepeatedFloorAreaCtrl,
-            fourthRepeatedFloorAreaCtrl
-          ],
-          floorNogroupVal);
-      setState(() {});
-    });
-    secondRepeatedFloorAreaCtrl.addListener(() {
-      listenerOfCalucateBildingTotalAreas(
-          bildingTotalAreasCtrl,
-          [
-            groundFloorAreaCtrl,
-            firstRepeatedFloorAreaCtrl,
-            secondRepeatedFloorAreaCtrl,
-            thirdRepeatedFloorAreaCtrl,
-            fourthRepeatedFloorAreaCtrl
-          ],
-          floorNogroupVal);
-      setState(() {});
-    });
-    thirdRepeatedFloorAreaCtrl.addListener(() {
-      listenerOfCalucateBildingTotalAreas(
-          bildingTotalAreasCtrl,
-          [
-            groundFloorAreaCtrl,
-            firstRepeatedFloorAreaCtrl,
-            secondRepeatedFloorAreaCtrl,
-            thirdRepeatedFloorAreaCtrl,
-            fourthRepeatedFloorAreaCtrl
-          ],
-          floorNogroupVal);
-      setState(() {});
-    });
-    fourthRepeatedFloorAreaCtrl.addListener(() {
-      listenerOfCalucateBildingTotalAreas(
-          bildingTotalAreasCtrl,
-          [
-            groundFloorAreaCtrl,
-            firstRepeatedFloorAreaCtrl,
-            secondRepeatedFloorAreaCtrl,
-            thirdRepeatedFloorAreaCtrl,
-            fourthRepeatedFloorAreaCtrl
-          ],
-          floorNogroupVal);
-      setState(() {});
-    });
+    // groundFloorAreaCtrl.addListener(() {
+    //   listenerOfCalucateBildingTotalAreas(
+    //       bildingTotalAreasCtrl,
+    //       [
+    //         groundFloorAreaCtrl,
+    //         firstRepeatedFloorAreaCtrl,
+    //         secondRepeatedFloorAreaCtrl,
+    //         thirdRepeatedFloorAreaCtrl,
+    //         fourthRepeatedFloorAreaCtrl
+    //       ],
+    //       floorNogroupVal);
+    //   setState(() {});
+    // });
+    // firstRepeatedFloorAreaCtrl.addListener(() {
+    //   listenerOfCalucateBildingTotalAreas(
+    //       bildingTotalAreasCtrl,
+    //       [
+    //         groundFloorAreaCtrl,
+    //         firstRepeatedFloorAreaCtrl,
+    //         secondRepeatedFloorAreaCtrl,
+    //         thirdRepeatedFloorAreaCtrl,
+    //         fourthRepeatedFloorAreaCtrl
+    //       ],
+    //       floorNogroupVal);
+    //   setState(() {});
+    // });
+    // secondRepeatedFloorAreaCtrl.addListener(() {
+    //   listenerOfCalucateBildingTotalAreas(
+    //       bildingTotalAreasCtrl,
+    //       [
+    //         groundFloorAreaCtrl,
+    //         firstRepeatedFloorAreaCtrl,
+    //         secondRepeatedFloorAreaCtrl,
+    //         thirdRepeatedFloorAreaCtrl,
+    //         fourthRepeatedFloorAreaCtrl
+    //       ],
+    //       floorNogroupVal);
+    //   setState(() {});
+    // });
+    // thirdRepeatedFloorAreaCtrl.addListener(() {
+    //   listenerOfCalucateBildingTotalAreas(
+    //       bildingTotalAreasCtrl,
+    //       [
+    //         groundFloorAreaCtrl,
+    //         firstRepeatedFloorAreaCtrl,
+    //         secondRepeatedFloorAreaCtrl,
+    //         thirdRepeatedFloorAreaCtrl,
+    //         fourthRepeatedFloorAreaCtrl
+    //       ],
+    //       floorNogroupVal);
+    //   setState(() {});
+    // });
+    // fourthRepeatedFloorAreaCtrl.addListener(() {
+    //   listenerOfCalucateBildingTotalAreas(
+    //       bildingTotalAreasCtrl,
+    //       [
+    //         groundFloorAreaCtrl,
+    //         firstRepeatedFloorAreaCtrl,
+    //         secondRepeatedFloorAreaCtrl,
+    //         thirdRepeatedFloorAreaCtrl,
+    //         fourthRepeatedFloorAreaCtrl
+    //       ],
+    //       floorNogroupVal);
+    //   setState(() {});
+    //});
 
     super.initState();
   }
@@ -1758,7 +1759,9 @@ class _HomePageState extends State<HomePage> {
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                                 onTap: () {},
-                                //onChanged: (value) {},
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
                                 keyboardType:
                                     const TextInputType.numberWithOptions(
                                         decimal: true, signed: false),
@@ -1843,7 +1846,9 @@ class _HomePageState extends State<HomePage> {
                                       ? Text(
                                           soilTypegroupVal == 0.02437
                                               ? 'قوية'
-                                              : 'متوسطة',
+                                              : soilTypegroupVal == 0.01716
+                                                  ? 'متوسطة'
+                                                  : '',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 16.sp),
@@ -2016,19 +2021,19 @@ class _HomePageState extends State<HomePage> {
                                                           .clear();
                                                       fourthRepeatedFloorAreaCtrl
                                                           .clear();
-
+                                                      attachedFloorCtrl.clear();
                                                       isAttachedFloorgroupVal =
                                                           null;
-                                                      listenerOfCalucateBildingTotalAreas(
-                                                          bildingTotalAreasCtrl,
-                                                          [
-                                                            groundFloorAreaCtrl,
-                                                            firstRepeatedFloorAreaCtrl,
-                                                            secondRepeatedFloorAreaCtrl,
-                                                            thirdRepeatedFloorAreaCtrl,
-                                                            fourthRepeatedFloorAreaCtrl
-                                                          ],
-                                                          floorNogroupVal);
+                                                      // listenerOfCalucateBildingTotalAreas(
+                                                      //     bildingTotalAreasCtrl,
+                                                      //     [
+                                                      //       groundFloorAreaCtrl,
+                                                      //       firstRepeatedFloorAreaCtrl,
+                                                      //       secondRepeatedFloorAreaCtrl,
+                                                      //       thirdRepeatedFloorAreaCtrl,
+                                                      //       fourthRepeatedFloorAreaCtrl
+                                                      //     ],
+                                                      //     floorNogroupVal);
                                                       isdropdownFloorNo = false;
                                                       allOptionsToDisplayResults
                                                           .clear();
@@ -2270,13 +2275,16 @@ class _HomePageState extends State<HomePage> {
                                                   height: 10.h,
                                                 ),
                                                 TextFormField(
-                                                  controller: index == 0
-                                                      ? firstRepeatedFloorAreaCtrl
-                                                      : index == 1
-                                                          ? secondRepeatedFloorAreaCtrl
-                                                          : index == 2
-                                                              ? thirdRepeatedFloorAreaCtrl
-                                                              : fourthRepeatedFloorAreaCtrl,
+                                                  controller: index ==
+                                                          floorNogroupVal! - 2
+                                                      ? attachedFloorCtrl
+                                                      : index == 0
+                                                          ? firstRepeatedFloorAreaCtrl
+                                                          : index == 1
+                                                              ? secondRepeatedFloorAreaCtrl
+                                                              : index == 2
+                                                                  ? thirdRepeatedFloorAreaCtrl
+                                                                  : fourthRepeatedFloorAreaCtrl,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 16.sp,
@@ -2284,7 +2292,9 @@ class _HomePageState extends State<HomePage> {
                                                       fontWeight:
                                                           FontWeight.bold),
                                                   onTap: () {},
-                                                  //onChanged: (value) {},
+                                                  onChanged: (value) {
+                                                    setState(() {});
+                                                  },
                                                   keyboardType:
                                                       const TextInputType
                                                           .numberWithOptions(
@@ -2436,7 +2446,9 @@ class _HomePageState extends State<HomePage> {
                                                           fontWeight:
                                                               FontWeight.bold),
                                                       onTap: () {},
-                                                      //onChanged: (value) {},
+                                                      onChanged: (value) {
+                                                        setState(() {});
+                                                      },
                                                       keyboardType:
                                                           const TextInputType
                                                               .numberWithOptions(
@@ -2554,86 +2566,86 @@ class _HomePageState extends State<HomePage> {
                                 : const SizedBox(),
 
                         //building total areas label and field start
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 15.h),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const FieldLabel(
-                                label: 'مجموع المساحات (م²)',
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              TextFormField(
-                                controller: bildingTotalAreasCtrl,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 16.sp,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                                // onTap: () {},
-                                //onChanged: (value) {},
-                                // keyboardType:
-                                //     const TextInputType.numberWithOptions(
-                                //         decimal: true, signed: false),
+                        // Padding(
+                        //   padding: EdgeInsets.only(bottom: 15.h),
+                        //   child: Column(
+                        //     mainAxisAlignment: MainAxisAlignment.start,
+                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                        //     children: [
+                        //       const FieldLabel(
+                        //         label: 'مجموع المساحات (م²)',
+                        //       ),
+                        //       SizedBox(
+                        //         height: 10.h,
+                        //       ),
+                        //       TextFormField(
+                        //         controller: bildingTotalAreasCtrl,
+                        //         textAlign: TextAlign.center,
+                        //         style: TextStyle(
+                        //             fontSize: 16.sp,
+                        //             color: Colors.white,
+                        //             fontWeight: FontWeight.bold),
+                        //         // onTap: () {},
+                        //         //onChanged: (value) {},
+                        //         // keyboardType:
+                        //         //     const TextInputType.numberWithOptions(
+                        //         //         decimal: true, signed: false),
 
-                                // textInputAction: TextInputAction.done,
-                                // inputFormatters: [
-                                //   FilteringTextInputFormatter.allow(
-                                //       RegExp(r"[0-9.]")),
-                                //   TextInputFormatter.withFunction(
-                                //       (oldValue, newValue) {
-                                //     final text = newValue.text;
-                                //     return text.isEmpty
-                                //         ? newValue
-                                //         : double.tryParse(text) == null
-                                //             ? oldValue
-                                //             : newValue;
-                                //   }),
-                                // ],
-                                showCursor: false,
-                                readOnly: true,
+                        //         // textInputAction: TextInputAction.done,
+                        //         // inputFormatters: [
+                        //         //   FilteringTextInputFormatter.allow(
+                        //         //       RegExp(r"[0-9.]")),
+                        //         //   TextInputFormatter.withFunction(
+                        //         //       (oldValue, newValue) {
+                        //         //     final text = newValue.text;
+                        //         //     return text.isEmpty
+                        //         //         ? newValue
+                        //         //         : double.tryParse(text) == null
+                        //         //             ? oldValue
+                        //         //             : newValue;
+                        //         //   }),
+                        //         // ],
+                        //         showCursor: false,
+                        //         readOnly: true,
 
-                                // onFieldSubmitted: (value) {},
-                                // onTapOutside: (event) =>
-                                //     FocusManager.instance.primaryFocus?.unfocus(),
+                        //         // onFieldSubmitted: (value) {},
+                        //         // onTapOutside: (event) =>
+                        //         //     FocusManager.instance.primaryFocus?.unfocus(),
 
-                                decoration: InputDecoration(
-                                  // hintStyle: TextStyle(
-                                  //     fontSize: 16.sp,
-                                  //     color: const Color(0xFF90A4AE),
-                                  //     fontWeight: FontWeight.normal),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 5.h, horizontal: 15.w),
-                                  filled: true,
-                                  fillColor: Theme.of(context)
-                                      .primaryColor
-                                      .withOpacity(0.1),
+                        //         decoration: InputDecoration(
+                        //           // hintStyle: TextStyle(
+                        //           //     fontSize: 16.sp,
+                        //           //     color: const Color(0xFF90A4AE),
+                        //           //     fontWeight: FontWeight.normal),
+                        //           contentPadding: EdgeInsets.symmetric(
+                        //               vertical: 5.h, horizontal: 15.w),
+                        //           filled: true,
+                        //           fillColor: Theme.of(context)
+                        //               .primaryColor
+                        //               .withOpacity(0.1),
 
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10.0)),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        //           enabledBorder: const OutlineInputBorder(
+                        //             borderRadius:
+                        //                 BorderRadius.all(Radius.circular(10.0)),
+                        //             borderSide: BorderSide.none,
+                        //           ),
+                        //           focusedBorder: OutlineInputBorder(
+                        //             borderRadius: BorderRadius.circular(10.0),
+                        //             borderSide: BorderSide.none,
+                        //           ),
+                        //           errorBorder: OutlineInputBorder(
+                        //             borderRadius: BorderRadius.circular(10.0),
+                        //             borderSide: BorderSide.none,
+                        //           ),
+                        //           focusedErrorBorder: OutlineInputBorder(
+                        //             borderRadius: BorderRadius.circular(10.0),
+                        //             borderSide: BorderSide.none,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                         //building total areas label and field end
                         //owner label and field start
                         Padding(
@@ -2855,50 +2867,35 @@ class _HomePageState extends State<HomePage> {
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   foregroundColor: Colors.white,
-                                  backgroundColor: groundFloorAreaCtrl
-                                              .text.isNotEmpty &&
+                                  backgroundColor: groundFloorAreaCtrl.text.isNotEmpty &&
                                           soilTypegroupVal != null &&
                                           selctedOptionsToDisplayResults
                                               .isNotEmpty &&
                                           ownerCtrl.text.isNotEmpty &&
                                           (floorNogroupVal == 1 ||
                                               (floorNogroupVal == 2 &&
-                                                  isAttachedFloorgroupVal !=
-                                                      null &&
-                                                  firstRepeatedFloorAreaCtrl
-                                                      .text.isNotEmpty) ||
+                                                  ((isAttachedFloorgroupVal == false && firstRepeatedFloorAreaCtrl.text.isNotEmpty) ||
+                                                      (isAttachedFloorgroupVal == true &&
+                                                          attachedFloorCtrl.text
+                                                              .isNotEmpty))) ||
                                               (floorNogroupVal == 3 &&
-                                                  isAttachedFloorgroupVal !=
-                                                      null &&
                                                   firstRepeatedFloorAreaCtrl
                                                       .text.isNotEmpty &&
-                                                  secondRepeatedFloorAreaCtrl
-                                                      .text.isNotEmpty) ||
+                                                  ((isAttachedFloorgroupVal == false && secondRepeatedFloorAreaCtrl.text.isNotEmpty) ||
+                                                      (isAttachedFloorgroupVal == true &&
+                                                          attachedFloorCtrl.text
+                                                              .isNotEmpty))) ||
                                               (floorNogroupVal == 4 &&
-                                                  isAttachedFloorgroupVal !=
-                                                      null &&
                                                   firstRepeatedFloorAreaCtrl
                                                       .text.isNotEmpty &&
                                                   secondRepeatedFloorAreaCtrl
                                                       .text.isNotEmpty &&
-                                                  thirdRepeatedFloorAreaCtrl
-                                                      .text.isNotEmpty) ||
-                                              (floorNogroupVal == 5 &&
-                                                  isAttachedFloorgroupVal !=
-                                                      null &&
-                                                  firstRepeatedFloorAreaCtrl
-                                                      .text.isNotEmpty &&
-                                                  secondRepeatedFloorAreaCtrl.text
-                                                      .isNotEmpty &&
-                                                  thirdRepeatedFloorAreaCtrl
-                                                      .text.isNotEmpty &&
-                                                  fourthRepeatedFloorAreaCtrl
-                                                      .text.isNotEmpty))
+                                                  ((isAttachedFloorgroupVal == false && thirdRepeatedFloorAreaCtrl.text.isNotEmpty) ||
+                                                      (isAttachedFloorgroupVal == true && attachedFloorCtrl.text.isNotEmpty))) ||
+                                              (floorNogroupVal == 5 && firstRepeatedFloorAreaCtrl.text.isNotEmpty && secondRepeatedFloorAreaCtrl.text.isNotEmpty && thirdRepeatedFloorAreaCtrl.text.isNotEmpty && ((isAttachedFloorgroupVal == false && fourthRepeatedFloorAreaCtrl.text.isNotEmpty) || (isAttachedFloorgroupVal == true && attachedFloorCtrl.text.isNotEmpty))))
                                       ? Theme.of(context).primaryColor
                                       : Colors.grey,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.sp))),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.sp))),
                               onPressed: () {
                                 print(floorNogroupVal);
                                 if (groundFloorAreaCtrl.text.isNotEmpty &&
@@ -2907,38 +2904,96 @@ class _HomePageState extends State<HomePage> {
                                     ownerCtrl.text.isNotEmpty &&
                                     (floorNogroupVal == 1 ||
                                         (floorNogroupVal == 2 &&
-                                            isAttachedFloorgroupVal != null &&
-                                            firstRepeatedFloorAreaCtrl
-                                                .text.isNotEmpty) ||
+                                            ((isAttachedFloorgroupVal == false &&
+                                                    firstRepeatedFloorAreaCtrl
+                                                        .text.isNotEmpty) ||
+                                                (isAttachedFloorgroupVal == true &&
+                                                    attachedFloorCtrl
+                                                        .text.isNotEmpty))) ||
                                         (floorNogroupVal == 3 &&
-                                            isAttachedFloorgroupVal != null &&
                                             firstRepeatedFloorAreaCtrl
                                                 .text.isNotEmpty &&
-                                            secondRepeatedFloorAreaCtrl
-                                                .text.isNotEmpty) ||
+                                            ((isAttachedFloorgroupVal == false &&
+                                                    secondRepeatedFloorAreaCtrl
+                                                        .text.isNotEmpty) ||
+                                                (isAttachedFloorgroupVal == true &&
+                                                    attachedFloorCtrl
+                                                        .text.isNotEmpty))) ||
                                         (floorNogroupVal == 4 &&
-                                            isAttachedFloorgroupVal != null &&
                                             firstRepeatedFloorAreaCtrl
                                                 .text.isNotEmpty &&
                                             secondRepeatedFloorAreaCtrl
                                                 .text.isNotEmpty &&
-                                            thirdRepeatedFloorAreaCtrl
-                                                .text.isNotEmpty) ||
+                                            ((isAttachedFloorgroupVal == false &&
+                                                    thirdRepeatedFloorAreaCtrl
+                                                        .text.isNotEmpty) ||
+                                                (isAttachedFloorgroupVal ==
+                                                        true &&
+                                                    attachedFloorCtrl
+                                                        .text.isNotEmpty))) ||
                                         (floorNogroupVal == 5 &&
-                                            isAttachedFloorgroupVal != null &&
                                             firstRepeatedFloorAreaCtrl
                                                 .text.isNotEmpty &&
                                             secondRepeatedFloorAreaCtrl
                                                 .text.isNotEmpty &&
                                             thirdRepeatedFloorAreaCtrl
                                                 .text.isNotEmpty &&
-                                            fourthRepeatedFloorAreaCtrl
-                                                .text.isNotEmpty))) {
+                                            ((isAttachedFloorgroupVal ==
+                                                        false &&
+                                                    fourthRepeatedFloorAreaCtrl
+                                                        .text.isNotEmpty) ||
+                                                (isAttachedFloorgroupVal ==
+                                                        true &&
+                                                    attachedFloorCtrl
+                                                        .text.isNotEmpty))))) {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (_) =>
-                                            const UnderGroundWorksPDFViewer(),
+                                        builder: (_) => SchedulePDFViewer(
+                                          ownerName: ownerCtrl.text,
+                                          selctedOptionsToDisplayResults:
+                                              selctedOptionsToDisplayResults,
+                                          soilConstant: soilTypegroupVal!,
+                                          floorNo: floorNogroupVal!,
+                                          groundFloorArea: groundFloorAreaCtrl
+                                                  .text.isNotEmpty
+                                              ? double.parse(
+                                                  groundFloorAreaCtrl.text)
+                                              : null,
+                                          firstFloorArea:
+                                              firstRepeatedFloorAreaCtrl
+                                                      .text.isNotEmpty
+                                                  ? double.parse(
+                                                      firstRepeatedFloorAreaCtrl
+                                                          .text)
+                                                  : null,
+                                          secondFloorArea:
+                                              secondRepeatedFloorAreaCtrl
+                                                      .text.isNotEmpty
+                                                  ? double.parse(
+                                                      secondRepeatedFloorAreaCtrl
+                                                          .text)
+                                                  : null,
+                                          thirdFloorArea:
+                                              thirdRepeatedFloorAreaCtrl
+                                                      .text.isNotEmpty
+                                                  ? double.parse(
+                                                      thirdRepeatedFloorAreaCtrl
+                                                          .text)
+                                                  : null,
+                                          fourthFloorArea:
+                                              fourthRepeatedFloorAreaCtrl
+                                                      .text.isNotEmpty
+                                                  ? double.parse(
+                                                      fourthRepeatedFloorAreaCtrl
+                                                          .text)
+                                                  : null,
+                                          attachedFloorArea:
+                                              attachedFloorCtrl.text.isNotEmpty
+                                                  ? double.parse(
+                                                      attachedFloorCtrl.text)
+                                                  : null,
+                                        ),
                                       ));
                                 }
                               },
