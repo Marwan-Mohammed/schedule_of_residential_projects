@@ -2172,6 +2172,26 @@ class _HomePageState extends State<HomePage> {
                                                                     : OptionsToDisplayResults
                                                                         .firstFloor
                                                               ];
+
+                                                              if (selctedOptionsToDisplayResults
+                                                                  .contains(
+                                                                      OptionsToDisplayResults
+                                                                          .firstFloor)) {
+                                                                selctedOptionsToDisplayResults.remove(
+                                                                    OptionsToDisplayResults
+                                                                        .firstFloor);
+                                                                firstRepeatedFloorAreaCtrl
+                                                                    .clear();
+                                                              } else if (selctedOptionsToDisplayResults
+                                                                  .contains(
+                                                                      OptionsToDisplayResults
+                                                                          .attachedFloor)) {
+                                                                selctedOptionsToDisplayResults.remove(
+                                                                    OptionsToDisplayResults
+                                                                        .attachedFloor);
+                                                                attachedFloorCtrl
+                                                                    .clear();
+                                                              }
                                                             } else if (floorNogroupVal ==
                                                                 3) {
                                                               allOptionsToDisplayResults =
@@ -2189,6 +2209,25 @@ class _HomePageState extends State<HomePage> {
                                                                     : OptionsToDisplayResults
                                                                         .secondFloor
                                                               ];
+                                                              if (selctedOptionsToDisplayResults
+                                                                  .contains(
+                                                                      OptionsToDisplayResults
+                                                                          .secondFloor)) {
+                                                                selctedOptionsToDisplayResults.remove(
+                                                                    OptionsToDisplayResults
+                                                                        .secondFloor);
+                                                                secondRepeatedFloorAreaCtrl
+                                                                    .clear();
+                                                              } else if (selctedOptionsToDisplayResults
+                                                                  .contains(
+                                                                      OptionsToDisplayResults
+                                                                          .attachedFloor)) {
+                                                                selctedOptionsToDisplayResults.remove(
+                                                                    OptionsToDisplayResults
+                                                                        .attachedFloor);
+                                                                attachedFloorCtrl
+                                                                    .clear();
+                                                              }
                                                             } else if (floorNogroupVal ==
                                                                 4) {
                                                               allOptionsToDisplayResults =
@@ -2208,6 +2247,25 @@ class _HomePageState extends State<HomePage> {
                                                                     : OptionsToDisplayResults
                                                                         .thirdFloor
                                                               ];
+                                                              if (selctedOptionsToDisplayResults
+                                                                  .contains(
+                                                                      OptionsToDisplayResults
+                                                                          .thirdFloor)) {
+                                                                selctedOptionsToDisplayResults.remove(
+                                                                    OptionsToDisplayResults
+                                                                        .thirdFloor);
+                                                                thirdRepeatedFloorAreaCtrl
+                                                                    .clear();
+                                                              } else if (selctedOptionsToDisplayResults
+                                                                  .contains(
+                                                                      OptionsToDisplayResults
+                                                                          .attachedFloor)) {
+                                                                selctedOptionsToDisplayResults.remove(
+                                                                    OptionsToDisplayResults
+                                                                        .attachedFloor);
+                                                                attachedFloorCtrl
+                                                                    .clear();
+                                                              }
                                                             } else if (floorNogroupVal ==
                                                                 5) {
                                                               allOptionsToDisplayResults =
@@ -2229,6 +2287,25 @@ class _HomePageState extends State<HomePage> {
                                                                     : OptionsToDisplayResults
                                                                         .fourthFloor
                                                               ];
+                                                              if (selctedOptionsToDisplayResults
+                                                                  .contains(
+                                                                      OptionsToDisplayResults
+                                                                          .fourthFloor)) {
+                                                                selctedOptionsToDisplayResults.remove(
+                                                                    OptionsToDisplayResults
+                                                                        .fourthFloor);
+                                                                fourthRepeatedFloorAreaCtrl
+                                                                    .clear();
+                                                              } else if (selctedOptionsToDisplayResults
+                                                                  .contains(
+                                                                      OptionsToDisplayResults
+                                                                          .attachedFloor)) {
+                                                                selctedOptionsToDisplayResults.remove(
+                                                                    OptionsToDisplayResults
+                                                                        .attachedFloor);
+                                                                attachedFloorCtrl
+                                                                    .clear();
+                                                              }
                                                             }
                                                           });
                                                         },
