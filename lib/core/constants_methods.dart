@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'util/enums.dart';
-
 listenerOfCalucateBildingTotalAreas(TextEditingController targetCtrl,
     List<TextEditingController> checkedCtrls, int? floorNo) {
   if (floorNo == 1 && checkedCtrls[0].text.trim() != '') {

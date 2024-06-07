@@ -9,6 +9,8 @@ import 'package:schedule_of_residential_projects/core/extensions/size_config.dar
 import '../../../core/models.dart';
 import '../../../core/util/enums.dart';
 
+int projectDaysNo = 0;
+
 class SchedulePDFViewer extends StatelessWidget {
   final String ownerName;
   final List<OptionsToDisplayResults> selctedOptionsToDisplayResults;
@@ -38,7 +40,6 @@ class SchedulePDFViewer extends StatelessWidget {
 
   final String title = 'جدول زمني لمشروع سكني';
   //final MyOrders order;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +62,7 @@ class SchedulePDFViewer extends StatelessWidget {
     final font =
         pw.Font.ttf(await rootBundle.load("assets/fonts/Almarai-Regular.ttf"));
     final image = await imageFromAssetBundle('assets/images/tazmin_logo3.png');
+
     final textStyle = pw.TextStyle(
       fontSize: 10,
       lineSpacing: 10,
@@ -75,7 +77,7 @@ class SchedulePDFViewer extends StatelessWidget {
 
     pdf.addPage(pw.MultiPage(
         textDirection: pw.TextDirection.rtl,
-        margin: pw.EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+        margin: pw.EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
         theme: pw.ThemeData.withFont(base: font, bold: pw.Font.helvetica()),
         pageFormat: PdfPageFormat.a4,
         build: (context) => [
@@ -157,6 +159,7 @@ class SchedulePDFViewer extends StatelessWidget {
                       headers,
                     )
                   : pw.SizedBox(),
+              projectTimePeriodtotal(textStyle)
               //attached floor end
               // barCode()
             ]));
@@ -218,19 +221,19 @@ class SchedulePDFViewer extends StatelessWidget {
           constant: soilConstant,
           floorArea: floorArea,
           waitingPeriod: 2,
-          workersNoMachine: 'شيول');
+          workersNoMachine: soilConstant == 0.02437 ? 'حفار' : 'شيول');
       FloorTerm floorTerm2 = FloorTerm(
           name: 'نجارة القواعد العادية',
           constant: 0.00480,
           floorArea: floorArea,
           waitingPeriod: 0,
-          workersNoMachine: '-');
+          workersNoMachine: '2 نجارين + 2 مساعدين');
       FloorTerm floorTerm3 = FloorTerm(
           name: 'صب القواعد العادية',
           constant: 0.00345,
           floorArea: floorArea,
           waitingPeriod: 0,
-          workersNoMachine: '-');
+          workersNoMachine: '5 عمال / خلاطة مركزية');
       FloorTerm floorTerm4 = FloorTerm(
           name: 'نجارة القواعد المسلحة',
           constant: 0.01554,
@@ -286,7 +289,7 @@ class SchedulePDFViewer extends StatelessWidget {
           waitingPeriod: 7,
           workersNoMachine: '5 عمال / خلاطة مركزية');
       FloorTerm floorTerm13 = FloorTerm(
-          name: 'بناء الكرسي الحجري',
+          name: 'بناء الكرسي الحجرى',
           constant: 0.02106,
           floorArea: floorArea,
           waitingPeriod: 3,
@@ -308,7 +311,7 @@ class SchedulePDFViewer extends StatelessWidget {
           constant: 0.00759,
           floorArea: floorArea,
           waitingPeriod: 0,
-          workersNoMachine: 'شيول');
+          workersNoMachine: '3 عمال / شيول + دكاكة');
       FloorTerm floorTerm17 = FloorTerm(
           name: 'ردم داخل الميدات',
           constant: 0.00336,
@@ -705,16 +708,25 @@ class SchedulePDFViewer extends StatelessWidget {
     }
     var data = floorTerms
         .map((e) => [
-              e.timePeriodTotal(),
+              e.name == 'ردم إلى منسوب أسفل الميدة'
+                  ? e.timePeriodTotal(soilConstant: soilConstant)
+                  : e.timePeriodTotal(),
               e.workersNoMachine,
               e.waitingPeriod,
-              e.netTimePeriod(),
+              e.name == 'ردم إلى منسوب أسفل الميدة'
+                  ? e.netTimePeriod(soilConstant: soilConstant)
+                  : e.netTimePeriod(),
               e.name,
             ])
         .toList();
     int daysNo = 0;
     for (var e in floorTerms) {
-      daysNo += e.timePeriodTotal();
+      daysNo += e.name == 'ردم إلى منسوب أسفل الميدة'
+          ? e.timePeriodTotal(soilConstant: soilConstant)
+          : e.timePeriodTotal();
+      projectDaysNo += e.name == 'ردم إلى منسوب أسفل الميدة'
+          ? e.timePeriodTotal(soilConstant: soilConstant)
+          : e.timePeriodTotal();
     }
 
     return pw.Column(children: [
@@ -755,297 +767,297 @@ class SchedulePDFViewer extends StatelessWidget {
       pw.SizedBox(height: 0.5 * PdfPageFormat.cm),
       pw.Divider(color: PdfColors.grey),
       pw.SizedBox(height: 1 * PdfPageFormat.cm),
-      TimePeriodtotal(textStyle, daysNo, floorName),
+      floorTimePeriodtotal(textStyle, daysNo, floorName),
       pw.Divider(color: PdfColors.grey),
     ]);
   }
 
-  //ground floor Terms Table method
-  pw.Widget groundFloorTermsTable(textStyle, headers) {
-    final data = [
-      [
-        0,
-        '2 نجارين + 2 مساعدين',
-        0,
-        0,
-        'نجارة الأعمدة الأرضي',
-      ],
-      [
-        0,
-        '2 حدادين + 2 مساعدين',
-        0,
-        0,
-        'حدادة الأعمدة الأرضي',
-      ],
-      [
-        0,
-        '4 عمال / خلاطة مركزية',
-        0,
-        0,
-        'صب  الأعمدة الأرضي',
-      ],
-      [0, '4 نجارين + 4 مساعدين', 0, 0, 'نجارة سقف الأرضي'],
-      [0, '2 حدادين + 2 مساعدين', 0, 0, 'حدادة سقف الأرضي'],
-      [0, '5 عمال / خلاطة مركزية', 14, 0, 'صب سقف الأرضي'],
-      [0, '4 عمال', 0, 0, 'مباني الدور الأرضي'],
-    ];
+  // //ground floor Terms Table method
+  // pw.Widget groundFloorTermsTable(textStyle, headers) {
+  //   final data = [
+  //     [
+  //       0,
+  //       '2 نجارين + 2 مساعدين',
+  //       0,
+  //       0,
+  //       'نجارة الأعمدة الأرضي',
+  //     ],
+  //     [
+  //       0,
+  //       '2 حدادين + 2 مساعدين',
+  //       0,
+  //       0,
+  //       'حدادة الأعمدة الأرضي',
+  //     ],
+  //     [
+  //       0,
+  //       '4 عمال / خلاطة مركزية',
+  //       0,
+  //       0,
+  //       'صب  الأعمدة الأرضي',
+  //     ],
+  //     [0, '4 نجارين + 4 مساعدين', 0, 0, 'نجارة سقف الأرضي'],
+  //     [0, '2 حدادين + 2 مساعدين', 0, 0, 'حدادة سقف الأرضي'],
+  //     [0, '5 عمال / خلاطة مركزية', 14, 0, 'صب سقف الأرضي'],
+  //     [0, '4 عمال', 0, 0, 'مباني الدور الأرضي'],
+  //   ];
 
-    return pw.TableHelper.fromTextArray(
-      headers: headers,
-      data: data,
-      // headerDirection: pw.TextDirection.rtl,
-      // tableDirection: pw.TextDirection.rtl,
-      border: pw.TableBorder(
-        verticalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
-        horizontalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
-        left: pw.BorderSide(color: PdfColors.grey, width: 1),
-        right: pw.BorderSide(color: PdfColors.grey, width: 1),
-        top: pw.BorderSide(color: PdfColors.grey, width: 1),
-        bottom: pw.BorderSide(color: PdfColors.grey, width: 1),
-      ),
-      headerStyle: textStyle,
-      headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
-      cellStyle: textStyle,
-      cellHeight: 30,
-      cellAlignments: {
-        0: pw.Alignment.center,
-        1: pw.Alignment.center,
-        2: pw.Alignment.center,
-        3: pw.Alignment.center,
-        4: pw.Alignment.center,
-      },
-    );
-  }
+  //   return pw.TableHelper.fromTextArray(
+  //     headers: headers,
+  //     data: data,
+  //     // headerDirection: pw.TextDirection.rtl,
+  //     // tableDirection: pw.TextDirection.rtl,
+  //     border: pw.TableBorder(
+  //       verticalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       horizontalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       left: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       right: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       top: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       bottom: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //     ),
+  //     headerStyle: textStyle,
+  //     headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
+  //     cellStyle: textStyle,
+  //     cellHeight: 30,
+  //     cellAlignments: {
+  //       0: pw.Alignment.center,
+  //       1: pw.Alignment.center,
+  //       2: pw.Alignment.center,
+  //       3: pw.Alignment.center,
+  //       4: pw.Alignment.center,
+  //     },
+  //   );
+  // }
 
-  //first floor Terms Table method
-  pw.Widget firstFloorTermsTable(textStyle, headers) {
-    final data = [
-      [
-        0,
-        '2 نجارين + 2 مساعدين',
-        0,
-        0,
-        'نجارة الأعمدة الأول',
-      ],
-      [
-        0,
-        '2 حدادين + 2 مساعدين',
-        0,
-        0,
-        'حدادة الأعمدة الأول',
-      ],
-      [
-        0,
-        '4 عمال / خلاطة مركزية',
-        0,
-        0,
-        'صب  الأعمدة الأول',
-      ],
-      [0, '4 نجارين + 4 مساعدين', 0, 0, 'نجارة سقف الأول'],
-      [0, '2 حدادين + 2 مساعدين', 0, 0, 'حدادة سقف الأول'],
-      [0, '5 عمال / خلاطة مركزية', 14, 0, 'صب سقف الأول'],
-      [0, '4 عمال', 0, 0, 'مباني الدور الأول'],
-    ];
+  // //first floor Terms Table method
+  // pw.Widget firstFloorTermsTable(textStyle, headers) {
+  //   final data = [
+  //     [
+  //       0,
+  //       '2 نجارين + 2 مساعدين',
+  //       0,
+  //       0,
+  //       'نجارة الأعمدة الأول',
+  //     ],
+  //     [
+  //       0,
+  //       '2 حدادين + 2 مساعدين',
+  //       0,
+  //       0,
+  //       'حدادة الأعمدة الأول',
+  //     ],
+  //     [
+  //       0,
+  //       '4 عمال / خلاطة مركزية',
+  //       0,
+  //       0,
+  //       'صب  الأعمدة الأول',
+  //     ],
+  //     [0, '4 نجارين + 4 مساعدين', 0, 0, 'نجارة سقف الأول'],
+  //     [0, '2 حدادين + 2 مساعدين', 0, 0, 'حدادة سقف الأول'],
+  //     [0, '5 عمال / خلاطة مركزية', 14, 0, 'صب سقف الأول'],
+  //     [0, '4 عمال', 0, 0, 'مباني الدور الأول'],
+  //   ];
 
-    return pw.TableHelper.fromTextArray(
-      headers: headers,
-      data: data,
-      // headerDirection: pw.TextDirection.rtl,
-      // tableDirection: pw.TextDirection.rtl,
-      border: pw.TableBorder(
-        verticalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
-        horizontalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
-        left: pw.BorderSide(color: PdfColors.grey, width: 1),
-        right: pw.BorderSide(color: PdfColors.grey, width: 1),
-        top: pw.BorderSide(color: PdfColors.grey, width: 1),
-        bottom: pw.BorderSide(color: PdfColors.grey, width: 1),
-      ),
-      headerStyle: textStyle,
-      headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
-      cellStyle: textStyle,
-      cellHeight: 30,
-      cellAlignments: {
-        0: pw.Alignment.center,
-        1: pw.Alignment.center,
-        2: pw.Alignment.center,
-        3: pw.Alignment.center,
-        4: pw.Alignment.center,
-      },
-    );
-  }
+  //   return pw.TableHelper.fromTextArray(
+  //     headers: headers,
+  //     data: data,
+  //     // headerDirection: pw.TextDirection.rtl,
+  //     // tableDirection: pw.TextDirection.rtl,
+  //     border: pw.TableBorder(
+  //       verticalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       horizontalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       left: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       right: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       top: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       bottom: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //     ),
+  //     headerStyle: textStyle,
+  //     headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
+  //     cellStyle: textStyle,
+  //     cellHeight: 30,
+  //     cellAlignments: {
+  //       0: pw.Alignment.center,
+  //       1: pw.Alignment.center,
+  //       2: pw.Alignment.center,
+  //       3: pw.Alignment.center,
+  //       4: pw.Alignment.center,
+  //     },
+  //   );
+  // }
 
-  //second floor Terms Table method
-  pw.Widget secondFloorTermsTable(textStyle, headers) {
-    final data = [
-      [
-        0,
-        '2 نجارين + 2 مساعدين',
-        0,
-        0,
-        'نجارة الأعمدة الثاني',
-      ],
-      [
-        0,
-        '2 حدادين + 2 مساعدين',
-        0,
-        0,
-        'حدادة الأعمدة الثاني',
-      ],
-      [
-        0,
-        '4 عمال / خلاطة مركزية',
-        0,
-        0,
-        'صب الأعمدة الثاني',
-      ],
-      [0, '4 نجارين + 4 مساعدين', 0, 0, 'نجارة سقف الثاني'],
-      [0, '2 حدادين + 2 مساعدين', 0, 0, 'حدادة سقف الثاني'],
-      [0, '5 عمال / خلاطة مركزية', 14, 0, 'صب سقف الثاني'],
-      [0, '4 عمال', 0, 0, 'مباني الدور الثاني'],
-    ];
+  // //second floor Terms Table method
+  // pw.Widget secondFloorTermsTable(textStyle, headers) {
+  //   final data = [
+  //     [
+  //       0,
+  //       '2 نجارين + 2 مساعدين',
+  //       0,
+  //       0,
+  //       'نجارة الأعمدة الثاني',
+  //     ],
+  //     [
+  //       0,
+  //       '2 حدادين + 2 مساعدين',
+  //       0,
+  //       0,
+  //       'حدادة الأعمدة الثاني',
+  //     ],
+  //     [
+  //       0,
+  //       '4 عمال / خلاطة مركزية',
+  //       0,
+  //       0,
+  //       'صب الأعمدة الثاني',
+  //     ],
+  //     [0, '4 نجارين + 4 مساعدين', 0, 0, 'نجارة سقف الثاني'],
+  //     [0, '2 حدادين + 2 مساعدين', 0, 0, 'حدادة سقف الثاني'],
+  //     [0, '5 عمال / خلاطة مركزية', 14, 0, 'صب سقف الثاني'],
+  //     [0, '4 عمال', 0, 0, 'مباني الدور الثاني'],
+  //   ];
 
-    return pw.TableHelper.fromTextArray(
-      headers: headers,
-      data: data,
-      // headerDirection: pw.TextDirection.rtl,
-      // tableDirection: pw.TextDirection.rtl,
-      border: pw.TableBorder(
-        verticalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
-        horizontalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
-        left: pw.BorderSide(color: PdfColors.grey, width: 1),
-        right: pw.BorderSide(color: PdfColors.grey, width: 1),
-        top: pw.BorderSide(color: PdfColors.grey, width: 1),
-        bottom: pw.BorderSide(color: PdfColors.grey, width: 1),
-      ),
-      headerStyle: textStyle,
-      headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
-      cellStyle: textStyle,
-      cellHeight: 30,
-      cellAlignments: {
-        0: pw.Alignment.center,
-        1: pw.Alignment.center,
-        2: pw.Alignment.center,
-        3: pw.Alignment.center,
-        4: pw.Alignment.center,
-      },
-    );
-  }
+  //   return pw.TableHelper.fromTextArray(
+  //     headers: headers,
+  //     data: data,
+  //     // headerDirection: pw.TextDirection.rtl,
+  //     // tableDirection: pw.TextDirection.rtl,
+  //     border: pw.TableBorder(
+  //       verticalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       horizontalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       left: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       right: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       top: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       bottom: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //     ),
+  //     headerStyle: textStyle,
+  //     headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
+  //     cellStyle: textStyle,
+  //     cellHeight: 30,
+  //     cellAlignments: {
+  //       0: pw.Alignment.center,
+  //       1: pw.Alignment.center,
+  //       2: pw.Alignment.center,
+  //       3: pw.Alignment.center,
+  //       4: pw.Alignment.center,
+  //     },
+  //   );
+  // }
 
-  //third floor Terms Table method
-  pw.Widget thirdFloorTermsTable(textStyle, headers) {
-    final data = [
-      [
-        0,
-        '2 نجارين + 2 مساعدين',
-        0,
-        0,
-        'نجارة الأعمدة الثالث',
-      ],
-      [
-        0,
-        '2 حدادين + 2 مساعدين',
-        0,
-        0,
-        'حدادة الأعمدة الثالث',
-      ],
-      [
-        0,
-        '4 عمال / خلاطة مركزية',
-        0,
-        0,
-        'صب الأعمدة الثالث',
-      ],
-      [0, '4 نجارين + 4 مساعدين', 0, 0, 'نجارة سقف الثالث'],
-      [0, '2 حدادين + 2 مساعدين', 0, 0, 'حدادة سقف الثالث'],
-      [0, '5 عمال / خلاطة مركزية', 14, 0, 'صب سقف الثالث'],
-      [0, '4 عمال', 0, 0, 'مباني الدور الثالث'],
-    ];
+  // //third floor Terms Table method
+  // pw.Widget thirdFloorTermsTable(textStyle, headers) {
+  //   final data = [
+  //     [
+  //       0,
+  //       '2 نجارين + 2 مساعدين',
+  //       0,
+  //       0,
+  //       'نجارة الأعمدة الثالث',
+  //     ],
+  //     [
+  //       0,
+  //       '2 حدادين + 2 مساعدين',
+  //       0,
+  //       0,
+  //       'حدادة الأعمدة الثالث',
+  //     ],
+  //     [
+  //       0,
+  //       '4 عمال / خلاطة مركزية',
+  //       0,
+  //       0,
+  //       'صب الأعمدة الثالث',
+  //     ],
+  //     [0, '4 نجارين + 4 مساعدين', 0, 0, 'نجارة سقف الثالث'],
+  //     [0, '2 حدادين + 2 مساعدين', 0, 0, 'حدادة سقف الثالث'],
+  //     [0, '5 عمال / خلاطة مركزية', 14, 0, 'صب سقف الثالث'],
+  //     [0, '4 عمال', 0, 0, 'مباني الدور الثالث'],
+  //   ];
 
-    return pw.TableHelper.fromTextArray(
-      headers: headers,
-      data: data,
-      // headerDirection: pw.TextDirection.rtl,
-      // tableDirection: pw.TextDirection.rtl,
-      border: pw.TableBorder(
-        verticalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
-        horizontalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
-        left: pw.BorderSide(color: PdfColors.grey, width: 1),
-        right: pw.BorderSide(color: PdfColors.grey, width: 1),
-        top: pw.BorderSide(color: PdfColors.grey, width: 1),
-        bottom: pw.BorderSide(color: PdfColors.grey, width: 1),
-      ),
-      headerStyle: textStyle,
-      headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
-      cellStyle: textStyle,
-      cellHeight: 30,
-      cellAlignments: {
-        0: pw.Alignment.center,
-        1: pw.Alignment.center,
-        2: pw.Alignment.center,
-        3: pw.Alignment.center,
-        4: pw.Alignment.center,
-      },
-    );
-  }
+  //   return pw.TableHelper.fromTextArray(
+  //     headers: headers,
+  //     data: data,
+  //     // headerDirection: pw.TextDirection.rtl,
+  //     // tableDirection: pw.TextDirection.rtl,
+  //     border: pw.TableBorder(
+  //       verticalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       horizontalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       left: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       right: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       top: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       bottom: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //     ),
+  //     headerStyle: textStyle,
+  //     headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
+  //     cellStyle: textStyle,
+  //     cellHeight: 30,
+  //     cellAlignments: {
+  //       0: pw.Alignment.center,
+  //       1: pw.Alignment.center,
+  //       2: pw.Alignment.center,
+  //       3: pw.Alignment.center,
+  //       4: pw.Alignment.center,
+  //     },
+  //   );
+  // }
 
-  //fourth floor Terms Table method
-  pw.Widget fourthFloorTermsTable(textStyle, headers) {
-    final data = [
-      [
-        0,
-        '2 نجارين + 2 مساعدين',
-        0,
-        0,
-        'نجارة الأعمدة الرابع',
-      ],
-      [
-        0,
-        '2 حدادين + 2 مساعدين',
-        0,
-        0,
-        'حدادة الأعمدة الرابع',
-      ],
-      [
-        0,
-        '4 عمال / خلاطة مركزية',
-        0,
-        0,
-        'صب الأعمدة الرابع',
-      ],
-      [0, '4 نجارين + 4 مساعدين', 0, 0, 'نجارة سقف الرابع'],
-      [0, '2 حدادين + 2 مساعدين', 0, 0, 'حدادة سقف الرابع'],
-      [0, '5 عمال / خلاطة مركزية', 14, 0, 'صب سقف الرابع'],
-      [0, '4 عمال', 0, 0, 'مباني الدور الرابع'],
-    ];
+  // //fourth floor Terms Table method
+  // pw.Widget fourthFloorTermsTable(textStyle, headers) {
+  //   final data = [
+  //     [
+  //       0,
+  //       '2 نجارين + 2 مساعدين',
+  //       0,
+  //       0,
+  //       'نجارة الأعمدة الرابع',
+  //     ],
+  //     [
+  //       0,
+  //       '2 حدادين + 2 مساعدين',
+  //       0,
+  //       0,
+  //       'حدادة الأعمدة الرابع',
+  //     ],
+  //     [
+  //       0,
+  //       '4 عمال / خلاطة مركزية',
+  //       0,
+  //       0,
+  //       'صب الأعمدة الرابع',
+  //     ],
+  //     [0, '4 نجارين + 4 مساعدين', 0, 0, 'نجارة سقف الرابع'],
+  //     [0, '2 حدادين + 2 مساعدين', 0, 0, 'حدادة سقف الرابع'],
+  //     [0, '5 عمال / خلاطة مركزية', 14, 0, 'صب سقف الرابع'],
+  //     [0, '4 عمال', 0, 0, 'مباني الدور الرابع'],
+  //   ];
 
-    return pw.TableHelper.fromTextArray(
-      headers: headers,
-      data: data,
-      // headerDirection: pw.TextDirection.rtl,
-      // tableDirection: pw.TextDirection.rtl,
-      border: pw.TableBorder(
-        verticalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
-        horizontalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
-        left: pw.BorderSide(color: PdfColors.grey, width: 1),
-        right: pw.BorderSide(color: PdfColors.grey, width: 1),
-        top: pw.BorderSide(color: PdfColors.grey, width: 1),
-        bottom: pw.BorderSide(color: PdfColors.grey, width: 1),
-      ),
-      headerStyle: textStyle,
-      headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
-      cellStyle: textStyle,
-      cellHeight: 30,
-      cellAlignments: {
-        0: pw.Alignment.center,
-        1: pw.Alignment.center,
-        2: pw.Alignment.center,
-        3: pw.Alignment.center,
-        4: pw.Alignment.center,
-      },
-    );
-  }
+  //   return pw.TableHelper.fromTextArray(
+  //     headers: headers,
+  //     data: data,
+  //     // headerDirection: pw.TextDirection.rtl,
+  //     // tableDirection: pw.TextDirection.rtl,
+  //     border: pw.TableBorder(
+  //       verticalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       horizontalInside: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       left: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       right: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       top: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //       bottom: pw.BorderSide(color: PdfColors.grey, width: 1),
+  //     ),
+  //     headerStyle: textStyle,
+  //     headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
+  //     cellStyle: textStyle,
+  //     cellHeight: 30,
+  //     cellAlignments: {
+  //       0: pw.Alignment.center,
+  //       1: pw.Alignment.center,
+  //       2: pw.Alignment.center,
+  //       3: pw.Alignment.center,
+  //       4: pw.Alignment.center,
+  //     },
+  //   );
+  // }
 
-  pw.Widget TimePeriodtotal(textStyle, daysNo, floorName) {
+  pw.Widget floorTimePeriodtotal(textStyle, daysNo, floorName) {
     final customDecoration = pw.BoxDecoration(
       color: PdfColors.grey200,
     );
@@ -1053,6 +1065,31 @@ class SchedulePDFViewer extends StatelessWidget {
       [
         '$daysNo يوم',
         ' إجمالي الفترة الزمنية ل ${floorName}',
+      ],
+    ];
+
+    return pw.TableHelper.fromTextArray(
+      data: data,
+      border: pw.TableBorder.all(color: PdfColors.white),
+      headerDecoration: customDecoration,
+      rowDecoration: customDecoration,
+      cellStyle: textStyle,
+      headerStyle: textStyle,
+      cellHeight: 30,
+      cellAlignments: {
+        0: pw.Alignment.center,
+      },
+    );
+  }
+
+  pw.Widget projectTimePeriodtotal(textStyle) {
+    final customDecoration = pw.BoxDecoration(
+      color: PdfColors.grey200,
+    );
+    final data = [
+      [
+        '$projectDaysNo يوم',
+        ' إجمالي الفترة الزمنية للمشروع',
       ],
     ];
 

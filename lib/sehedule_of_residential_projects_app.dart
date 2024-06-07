@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:schedule_of_residential_projects/core/extensions/size_config.dart';
 import 'package:schedule_of_residential_projects/features/instructions/pages/instructions_page.dart';
 
 import 'features/about_app/pages/about_app_page.dart';
 import 'features/connect_us/pages/connect_us_page.dart';
 import 'features/home/pages/home_page.dart';
-import 'features/who_we/pages/who_we_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -62,11 +62,20 @@ class _MainPageState extends State<MainPage> {
         child: SizedBox(
       width: 230.w,
       child: DrawerWidget(
-        onSelectedItem: (item) {
+        onSelectedItem: (item) async {
           switch (item) {
             case DrawerItems.shareApp:
-              //share pop
-              return;
+              closeDrawer();
+              await FlutterShare.share(
+                title: 'تطبيق تزمين',
+                text: 'تطبيق تزمين',
+                linkUrl:
+                    'https://drive.google.com/file/d/1Dwly_yu7YQWyDrR4jAb_a03zLBDQe1aD/view?usp=drivesdk',
+                chooserTitle: 'مشاركة تطبيق تزمين',
+              );
+
+              //  return;
+              break;
             default:
               setState(() {
                 this.item = item;
@@ -136,10 +145,10 @@ class _MainPageState extends State<MainPage> {
         return ConnectUsPage(
           openDrawer: openDrawer,
         );
-      case DrawerItems.whoWe:
-        return WhoWePage(
-          openDrawer: openDrawer,
-        );
+      // case DrawerItems.whoWe:
+      //   return WhoWePage(
+      //     openDrawer: openDrawer,
+      //   );
       default:
         return HomePage(
           openDrawer: openDrawer,
@@ -214,10 +223,10 @@ class DrawerItems {
       DrawerItem(title: 'إرشادات', icon: Icons.integration_instructions);
   static const connect =
       DrawerItem(title: 'تواصل معنا', icon: CupertinoIcons.phone);
-  static const whoWe = DrawerItem(
-    title: 'من نحن',
-    icon: Icons.contact_support_rounded,
-  );
+  // static const whoWe = DrawerItem(
+  //   title: 'من نحن',
+  //   icon: Icons.contact_support_rounded,
+  // );
   static const shareApp =
       DrawerItem(title: 'مشاركة التطبيق', icon: Icons.share);
   static final List<DrawerItem> all = [
@@ -225,7 +234,7 @@ class DrawerItems {
     aboutApp,
     instructions,
     connect,
-    whoWe,
+    // whoWe,
     shareApp
   ];
 }
