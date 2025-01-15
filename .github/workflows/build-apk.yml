@@ -1,0 +1,43 @@
+name: Build Flutter APK
+
+on:
+  push:
+    branches:
+      - master  # يعمل عند رفع تعديلات على الفرع الرئيسي
+  pull_request:
+    branches:
+      - master  # يعمل عند سحب تعديلات على الفرع الرئيسي
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest  # استخدام نظام Ubuntu
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # تحميل الكود من المستودع
+
+      - name: Set up Java
+        uses: actions/setup-java@v3  # تثبيت Java
+        with:
+          java-version: '8'  # النسخة المطلوبة، يمكنك تغييرها إلى النسخة التي تحتاجها
+          distribution: 'temurin'  # توزيع Java (اختياري)
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2  # تثبيت Flutter
+        with:
+          flutter-version: 'stable'  # يمكنك تحديد النسخة التي تريدها
+
+      - name: Install dependencies
+        run: flutter pub get  # تثبيت الحزم
+
+      - name: flutter test
+        run: flutter test  # اختبار التطبيق
+
+      - name: Build APK
+        run: flutter build apk --release  # بناء نسخة APK في وضع الإصدار (release)
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3  # رفع النتيجة النهائية
+        with:
+          name: app-release.apk  # اسم الملف
+          path: build/app/outputs/flutter-apk/app-release.apk  # المسار الذي يتم فيه حفظ ملف APK

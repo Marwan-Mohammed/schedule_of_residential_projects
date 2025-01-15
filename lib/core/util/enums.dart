@@ -13,14 +13,15 @@ enum ProtrusionPosition {
 }
 
 enum OptionsToDisplayResults {
-  undergroundWorks('أعمال ماتحت الأرض'),
-  groundFloor('الدور الأرضي'),
-  firstFloor('الدور المتكرر الأول'),
-  secondFloor('الدور المتكرر الثاني'),
-  thirdFloor('الدور المتكرر الثالث'),
-  fourthFloor('الدور المتكرر الرابع'),
-  attachedFloor('الدور الملحق');
+  undergroundWorks(null, 'أعمال ماتحت الأرض'),
+  groundFloor(1, 'الدور الأرضي'),
+  firstFloor(2, 'الدور المتكرر الأول'),
+  secondFloor(3, 'الدور المتكرر الثاني'),
+  thirdFloor(4, 'الدور المتكرر الثالث'),
+  fourthFloor(5, 'الدور المتكرر الرابع'),
+  attachedFloor(null, 'الدور الملحق');
 
-  const OptionsToDisplayResults(this.name);
+  const OptionsToDisplayResults(this.orderNo, this.name);
+  final int? orderNo;
   final String name;
 }

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:schedule_of_residential_projects/core/extensions/size_config.dart';
 import 'package:schedule_of_residential_projects/features/instructions/pages/instructions_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'features/about_app/pages/about_app_page.dart';
 import 'features/connect_us/pages/connect_us_page.dart';
@@ -62,7 +63,7 @@ class _MainPageState extends State<MainPage> {
         child: SizedBox(
       width: 230.w,
       child: DrawerWidget(
-        onSelectedItem: (item) async {
+        onSelectedItem: (i) async {
           switch (item) {
             case DrawerItems.shareApp:
               closeDrawer();
@@ -169,6 +170,28 @@ class DrawerWidget extends StatelessWidget {
         child: Column(
           children: [
             buildDrawerItems(context),
+            SizedBox(
+              height: 20.h,
+            ),
+            Text(
+              'يمكنك تحميل التطبيق من هنا',
+              style: TextStyle(color: Colors.white),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            InkWell(
+                onTap: () async {
+                  String url = 'https://t.me/tazmin6pp';
+                  await launchUrl(Uri.parse(url));
+                },
+                child: Text(
+                  'https://t.me/tazmin6pp',
+                  style: TextStyle(color: Colors.blue),
+                )),
+            SizedBox(
+              height: 15.h,
+            ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               decoration: BoxDecoration(

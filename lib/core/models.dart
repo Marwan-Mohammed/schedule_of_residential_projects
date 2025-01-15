@@ -14,23 +14,33 @@ class FloorTerm {
     if (name == 'الحفر') {
       if (constant == 0.02437) //strong soil
       {
-        return ((1.0 * floorArea) / 145.8).ceil();
+        return ((1.0 * floorArea) / 145.8).round() == 0
+            ? 1
+            : ((1.0 * floorArea) / 145.8).round();
       } else if (constant == 0.01716) //medium soil
       {
-        return ((1.50 * floorArea) / 405.0).ceil();
+        return ((1.50 * floorArea) / 405.0).round() == 0
+            ? 1
+            : ((1.50 * floorArea) / 405.0).round();
       }
     } else if (name == 'ردم إلى منسوب أسفل الميدة') {
       if (soilConstant == 0.02437) //strong soil
       {
-        return ((1.0 * floorArea) / 200.0).ceil();
+        return ((1.0 * floorArea) / 200.0).round() == 0
+            ? 1
+            : ((1.0 * floorArea) / 200.0).round();
       } else if (soilConstant == 0.01716) //medium soil
       {
-        return ((1.50 * floorArea) / 200.0).ceil();
+        return ((1.50 * floorArea) / 200.0).round() == 0
+            ? 1
+            : ((1.50 * floorArea) / 200.0).round();
       }
-    } else if (name.startsWith('صب سقف')) {
+    } else if (name.startsWith('صب')) {
       return 1;
     }
-    return (floorArea * constant).ceil();
+    return (floorArea * constant).round() == 0
+        ? 1
+        : (floorArea * constant).round();
   }
 
   int timePeriodTotal({double? soilConstant}) {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:schedule_of_residential_projects/core/extensions/size_config.dart';
 
-import '../../../core/constants_methods.dart';
 import '../../../core/util/enums.dart';
 import '../../results/pages/schedule_pdf_viewer.dart';
 import '../widgets/custom_radio_list_tile.dart';
@@ -1595,6 +1595,8 @@ class _HomePageState extends State<HomePage> {
   TextEditingController attachedFloorCtrl = TextEditingController();
   //TextEditingController bildingTotalAreasCtrl = TextEditingController();
   TextEditingController ownerCtrl = TextEditingController();
+  TextEditingController projectStartDateCtrl = TextEditingController();
+  DateTime? projectStartDate;
   int? floorNogroupVal;
   double? soilTypegroupVal;
   bool? isAttachedFloorgroupVal;
@@ -1605,6 +1607,13 @@ class _HomePageState extends State<HomePage> {
       List.empty(growable: true);
   List<OptionsToDisplayResults> selctedOptionsToDisplayResults =
       List.empty(growable: true);
+  Future<DateTime?> pickedDate() => showDatePicker(
+      context: context,
+      selectableDayPredicate: (DateTime val) =>
+          DateFormat('EEEE', 'ar').format(val) == 'الجمعة' ? false : true,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.parse('2040-12-30'));
   @override
   void initState() {
     // groundFloorAreaCtrl.addListener(() {
@@ -2795,6 +2804,85 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         //owner label and field end
+                        //project start date start
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 15.h),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const FieldLabel(
+                                label: 'تاريخ بداية المشروع',
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              TextFormField(
+                                controller: projectStartDateCtrl,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                                onTap: () async {
+                                  projectStartDate = await pickedDate();
+
+                                  if (projectStartDate == null) return;
+                                  projectStartDateCtrl.text =
+                                      DateFormat('EEEE, d MMMM yyyy', 'ar')
+                                          .format(projectStartDate!);
+                                  setState(() {});
+                                },
+                                onChanged: (value) {
+                                  // setState(() {});
+                                },
+                                keyboardType: TextInputType.datetime,
+                                textInputAction: TextInputAction.done,
+                                showCursor: false,
+                                readOnly: true,
+                                // onFieldSubmitted: (value) {},
+                                onTapOutside: (event) => FocusManager
+                                    .instance.primaryFocus
+                                    ?.unfocus(),
+                                cursorColor:
+                                    Theme.of(context).secondaryHeaderColor,
+                                decoration: InputDecoration(
+                                  hintText: 'تاريخ بداية المشروع',
+                                  hintStyle: TextStyle(
+                                      fontSize: 16.sp,
+                                      color: Theme.of(context)
+                                          .primaryColor
+                                          .withOpacity(0.5),
+                                      fontWeight: FontWeight.normal),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 5.h, horizontal: 15.w),
+                                  filled: true,
+                                  fillColor: Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.1),
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        //project start date end
                         SizedBox(
                           height: 15.h,
                         ),
@@ -2949,6 +3037,8 @@ class _HomePageState extends State<HomePage> {
                                           selctedOptionsToDisplayResults
                                               .isNotEmpty &&
                                           ownerCtrl.text.isNotEmpty &&
+                                          projectStartDateCtrl
+                                              .text.isNotEmpty &&
                                           (floorNogroupVal == 1 ||
                                               (floorNogroupVal == 2 &&
                                                   ((isAttachedFloorgroupVal == false && firstRepeatedFloorAreaCtrl.text.isNotEmpty) ||
@@ -2979,6 +3069,7 @@ class _HomePageState extends State<HomePage> {
                                     soilTypegroupVal != null &&
                                     selctedOptionsToDisplayResults.isNotEmpty &&
                                     ownerCtrl.text.isNotEmpty &&
+                                    projectStartDateCtrl.text.isNotEmpty &&
                                     (floorNogroupVal == 1 ||
                                         (floorNogroupVal == 2 &&
                                             ((isAttachedFloorgroupVal == false &&
@@ -3032,6 +3123,7 @@ class _HomePageState extends State<HomePage> {
                                               selctedOptionsToDisplayResults,
                                           soilConstant: soilTypegroupVal!,
                                           floorNo: floorNogroupVal!,
+                                          projectStartDate: projectStartDate!,
                                           groundFloorArea: groundFloorAreaCtrl
                                                   .text.isNotEmpty
                                               ? double.parse(
