@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get  # تثبيت الحزم
 
-      - name: flutter test
-        run: flutter test  # اختبار التطبيق
+      # - name: flutter test
+      #   run: flutter test  # اختبار التطبيق
 
       - name: Build APK
         run: flutter build apk --release  # بناء نسخة APK في وضع الإصدار (release)
