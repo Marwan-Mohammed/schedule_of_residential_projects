@@ -25,7 +25,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2  # تثبيت Flutter
         with:
-          flutter-version: 'stable'  # يمكنك تحديد النسخة التي تريدها
+          flutter-version: '3.19.6'  # يمكنك تحديد النسخة التي تريدها
 
       - name: Install dependencies
         run: flutter pub get  # تثبيت الحزم
