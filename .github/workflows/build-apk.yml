@@ -19,7 +19,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v3  # تثبيت Java
         with:
-          java-version: '8'  # النسخة المطلوبة، يمكنك تغييرها إلى النسخة التي تحتاجها
+          java-version: '17'  # النسخة المطلوبة، يمكنك تغييرها إلى النسخة التي تحتاجها
           distribution: 'temurin'  # توزيع Java (اختياري)
 
       - name: Set up Flutter
