@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
         ],
         debugShowCheckedModeBanner: false,
-        title: 'الجدول الزمني للمشاريع لسكنية',
+        title: '.الجدول الزمني للمشاريع لسكنية',
         locale: const Locale('ar'),
         theme: ThemeData(
           primaryColor: const Color(0xFF1B3D3F),
